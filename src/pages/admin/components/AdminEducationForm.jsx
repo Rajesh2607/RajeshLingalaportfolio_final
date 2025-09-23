@@ -154,7 +154,7 @@ const AdminEducationForm = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="institution" className="block text-white text-sm font-medium mb-2 flex items-center">
+              <label htmlFor="institution" className="flex items-center text-white text-sm font-medium mb-2">
                 <Building size={16} className="mr-2 text-blue-400" />
                 Institution
               </label>
@@ -170,7 +170,7 @@ const AdminEducationForm = () => {
             </div>
 
             <div>
-              <label htmlFor="degree" className="block text-white text-sm font-medium mb-2 flex items-center">
+              <label htmlFor="degree" className="flex items-center text-white text-sm font-medium mb-2">
                 <GraduationCap size={16} className="mr-2 text-purple-400" />
                 Degree
               </label>
@@ -186,7 +186,7 @@ const AdminEducationForm = () => {
             </div>
 
             <div className="md:col-span-2">
-              <label htmlFor="fieldOfStudy" className="block text-white text-sm font-medium mb-2 flex items-center">
+              <label htmlFor="fieldOfStudy" className="flex items-center text-white text-sm font-medium mb-2">
                 <BookOpen size={16} className="mr-2 text-green-400" />
                 Field of Study
               </label>
@@ -202,7 +202,7 @@ const AdminEducationForm = () => {
             </div>
 
             <div>
-              <label htmlFor="startYear" className="block text-white text-sm font-medium mb-2 flex items-center">
+              <label htmlFor="startYear" className="flex items-center text-white text-sm font-medium mb-2">
                 <Calendar size={16} className="mr-2 text-cyan-400" />
                 Start Year
               </label>
@@ -218,7 +218,7 @@ const AdminEducationForm = () => {
             </div>
 
             <div>
-              <label htmlFor="endYear" className="block text-white text-sm font-medium mb-2 flex items-center">
+              <label htmlFor="endYear" className="flex items-center text-white text-sm font-medium mb-2">
                 <Calendar size={16} className="mr-2 text-orange-400" />
                 End Year
               </label>
@@ -301,3 +301,4 @@ const AdminEducationForm = () => {
 };
 
 export default AdminEducationForm;
+

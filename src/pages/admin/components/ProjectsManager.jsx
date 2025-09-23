@@ -221,23 +221,25 @@ const ProjectManager = () => {
   }
 
   return (
-    <div className="space-y-8 p-6">
+    <div className="space-y-6 md:space-y-8 p-3 md:p-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-2xl p-6 border border-cyan-500/30 backdrop-blur-xl"
+        className="bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-xl md:rounded-2xl p-4 md:p-6 border border-cyan-500/30 backdrop-blur-xl"
       >
-        <div className="flex items-center space-x-4">
-          <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-purple-400 rounded-xl flex items-center justify-center">
-            <Code size={24} className="text-white" />
+        <div className="flex items-center space-x-3 md:space-x-4">
+          <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-cyan-400 to-purple-400 rounded-lg md:rounded-xl flex items-center justify-center">
+            <Code size={20} className="md:hidden text-white" />
+            <Code size={24} className="hidden md:block text-white" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-              <Sparkles size={20} className="text-cyan-400" />
+            <h2 className="text-lg md:text-2xl font-bold text-white flex items-center gap-2">
+              <Sparkles size={16} className="md:hidden text-cyan-400" />
+              <Sparkles size={20} className="hidden md:block text-cyan-400" />
               Projects Management
             </h2>
-            <p className="text-gray-300">Manage your project portfolio</p>
+            <p className="text-sm md:text-base text-gray-300">Manage your project portfolio</p>
           </div>
         </div>
       </motion.div>
@@ -246,22 +248,24 @@ const ProjectManager = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-2xl p-6 border border-slate-700/50 backdrop-blur-xl"
+        className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-xl md:rounded-2xl p-4 md:p-6 border border-slate-700/50 backdrop-blur-xl"
       >
-        <h3 className="text-xl font-semibold text-white mb-6 flex items-center">
-          <Plus size={20} className="mr-2 text-green-400" />
+        <h3 className="text-lg md:text-xl font-semibold text-white mb-4 md:mb-6 flex items-center">
+          <Plus size={16} className="md:hidden mr-2 text-green-400" />
+          <Plus size={20} className="hidden md:block mr-2 text-green-400" />
           {editingId ? 'Update Project' : 'Add New Project'}
         </h3>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
             <div>
-              <label className="block text-white text-sm font-medium mb-2 flex items-center">
-                <Code size={16} className="mr-2 text-cyan-400" />
+              <label className="flex items-center text-white text-sm font-medium mb-2">
+                <Code size={14} className="md:hidden mr-2 text-cyan-400" />
+                <Code size={16} className="hidden md:block mr-2 text-cyan-400" />
                 Project Title
               </label>
               <input
-                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600/50 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent backdrop-blur-sm"
+                className="w-full px-3 py-2 md:px-4 md:py-3 bg-slate-900/50 border border-slate-600/50 rounded-lg md:rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent backdrop-blur-sm text-sm md:text-base"
                 type="text"
                 placeholder="Project Title"
                 value={title}
@@ -271,12 +275,13 @@ const ProjectManager = () => {
             </div>
 
             <div>
-              <label className="text-white text-sm font-medium mb-2 flex items-center">
-                <Tag size={16} className="mr-2 text-purple-400" />
+              <label className="flex items-center text-white text-sm font-medium mb-2">
+                <Tag size={14} className="md:hidden mr-2 text-purple-400" />
+                <Tag size={16} className="hidden md:block mr-2 text-purple-400" />
                 Category
               </label>
               <input
-                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600/50 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent backdrop-blur-sm"
+                className="w-full px-3 py-2 md:px-4 md:py-3 bg-slate-900/50 border border-slate-600/50 rounded-lg md:rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent backdrop-blur-sm text-sm md:text-base"
                 type="text"
                 placeholder="Category (e.g., Web App, Mobile App)"
                 value={category}
@@ -287,17 +292,18 @@ const ProjectManager = () => {
           </div>
 
           {/* Domain Selection Section */}
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4">
             <div>
-              <label className="text-white text-sm font-medium mb-3 flex items-center">
-                <Globe size={16} className="mr-2 text-green-400" />
+              <label className="flex items-center text-white text-sm font-medium mb-3">
+                <Globe size={14} className="md:hidden mr-2 text-green-400" />
+                <Globe size={16} className="hidden md:block mr-2 text-green-400" />
                 Project Domain(s)
               </label>
               
-              <div className="bg-slate-900/50 border border-slate-600/50 rounded-xl p-4 space-y-3">
-                <p className="text-gray-300 text-sm mb-3">Select one or more domains that apply to this project:</p>
+              <div className="bg-slate-900/50 border border-slate-600/50 rounded-lg md:rounded-xl p-3 md:p-4 space-y-3">
+                <p className="text-gray-300 text-xs md:text-sm mb-3">Select one or more domains that apply to this project:</p>
                 
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-48 overflow-y-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-40 md:max-h-48 overflow-y-auto">
                   {projectDomains.map(domain => (
                     <label key={domain} className="flex items-center space-x-2 cursor-pointer group">
                       <input
@@ -535,3 +541,4 @@ const ProjectManager = () => {
 };
 
 export default ProjectManager;
+

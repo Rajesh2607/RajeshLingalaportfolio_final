@@ -159,7 +159,7 @@ const HeroManager = () => {
 
               {/* Description */}
               <div>
-                <label className="block text-white text-sm font-medium mb-2 flex items-center">
+                <label className="flex items-center text-white text-sm font-medium mb-2">
                   <FileText size={16} className="mr-2 text-cyan-400" />
                   Description
                 </label>
@@ -181,7 +181,7 @@ const HeroManager = () => {
 
               {/* Image Upload */}
               <div>
-                <label className="block text-white text-sm font-medium mb-2 flex items-center">
+                <label className="flex items-center text-white text-sm font-medium mb-2">
                   <ImageIcon size={16} className="mr-2 text-purple-400" />
                   Change Image (optional)
                 </label>
@@ -245,3 +245,4 @@ const HeroManager = () => {
 };
 
 export default HeroManager;
+

@@ -146,7 +146,7 @@ const AchievementsManager = () => {
         <form onSubmit={handleAddOrEditAchievement} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-white text-sm font-medium mb-2 flex items-center">
+              <label className="flex items-center text-white text-sm font-medium mb-2">
                 <Trophy size={16} className="mr-2 text-yellow-400" />
                 Title
               </label>
@@ -161,7 +161,7 @@ const AchievementsManager = () => {
               />
             </div>
             <div>
-              <label className="block text-white text-sm font-medium mb-2 flex items-center">
+              <label className="flex items-center text-white text-sm font-medium mb-2">
                 <Building size={16} className="mr-2 text-blue-400" />
                 Organization
               </label>
@@ -176,7 +176,7 @@ const AchievementsManager = () => {
               />
             </div>
             <div>
-              <label className="block text-white text-sm font-medium mb-2 flex items-center">
+              <label className="flex items-center text-white text-sm font-medium mb-2">
                 <Calendar size={16} className="mr-2 text-green-400" />
                 Year
               </label>
@@ -296,3 +296,4 @@ const AchievementsManager = () => {
 };
 
 export default AchievementsManager;
+

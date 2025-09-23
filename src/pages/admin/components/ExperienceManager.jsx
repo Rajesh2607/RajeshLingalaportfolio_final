@@ -117,23 +117,25 @@ const ExperienceManager = () => {
   }
 
   return (
-    <div className="space-y-8 p-6">
+    <div className="space-y-6 md:space-y-8 p-3 md:p-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl p-6 border border-blue-500/30 backdrop-blur-xl"
+        className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl md:rounded-2xl p-4 md:p-6 border border-blue-500/30 backdrop-blur-xl"
       >
-        <div className="flex items-center space-x-4">
-          <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-400 rounded-xl flex items-center justify-center">
-            <Briefcase size={24} className="text-white" />
+        <div className="flex items-center space-x-3 md:space-x-4">
+          <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-400 to-purple-400 rounded-lg md:rounded-xl flex items-center justify-center">
+            <Briefcase size={20} className="md:hidden text-white" />
+            <Briefcase size={24} className="hidden md:block text-white" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-              <Sparkles size={20} className="text-blue-400" />
+            <h2 className="text-lg md:text-2xl font-bold text-white flex items-center gap-2">
+              <Sparkles size={16} className="md:hidden text-blue-400" />
+              <Sparkles size={20} className="hidden md:block text-blue-400" />
               Experience Management
             </h2>
-            <p className="text-gray-300">Manage your professional experience</p>
+            <p className="text-sm md:text-base text-gray-300">Manage your professional experience</p>
           </div>
         </div>
       </motion.div>
@@ -142,17 +144,18 @@ const ExperienceManager = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-2xl p-6 border border-slate-700/50 backdrop-blur-xl"
+        className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-xl md:rounded-2xl p-4 md:p-6 border border-slate-700/50 backdrop-blur-xl"
       >
-        <h3 className="text-xl font-semibold text-white mb-6 flex items-center">
-          <Plus size={20} className="mr-2 text-green-400" />
+        <h3 className="text-lg md:text-xl font-semibold text-white mb-4 md:mb-6 flex items-center">
+          <Plus size={16} className="md:hidden mr-2 text-green-400" />
+          <Plus size={20} className="hidden md:block mr-2 text-green-400" />
           {editingId ? 'Edit Experience' : 'Add New Experience'}
         </h3>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-white text-sm font-medium mb-2 flex items-center">
+              <label className="flex items-center text-white text-sm font-medium mb-2">
                 <Briefcase size={16} className="mr-2 text-blue-400" />
                 Job Title
               </label>
@@ -166,7 +169,7 @@ const ExperienceManager = () => {
               />
             </div>
             <div>
-              <label className="block text-white text-sm font-medium mb-2 flex items-center">
+              <label className="flex items-center text-white text-sm font-medium mb-2">
                 <Building size={16} className="mr-2 text-purple-400" />
                 Company
               </label>
@@ -180,7 +183,7 @@ const ExperienceManager = () => {
               />
             </div>
             <div>
-              <label className="block text-white text-sm font-medium mb-2 flex items-center">
+              <label className="flex items-center text-white text-sm font-medium mb-2">
                 <MapPin size={16} className="mr-2 text-green-400" />
                 Location
               </label>
@@ -194,7 +197,7 @@ const ExperienceManager = () => {
               />
             </div>
             <div>
-              <label className="block text-white text-sm font-medium mb-2 flex items-center">
+              <label className="flex items-center text-white text-sm font-medium mb-2">
                 <Calendar size={16} className="mr-2 text-cyan-400" />
                 Period
               </label>
@@ -336,3 +339,4 @@ const ExperienceManager = () => {
 };
 
 export default ExperienceManager;
+

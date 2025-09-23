@@ -94,52 +94,56 @@ const SkillManager = () => {
   }
 
   return (
-    <div className="space-y-8 p-6">
+    <div className="space-y-6 md:space-y-8 p-3 md:p-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-2xl p-6 border border-orange-500/30 backdrop-blur-xl"
+        className="bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-xl md:rounded-2xl p-4 md:p-6 border border-orange-500/30 backdrop-blur-xl"
       >
-        <div className="flex items-center space-x-4">
-          <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-400 rounded-xl flex items-center justify-center">
-            <Wrench size={24} className="text-white" />
+        <div className="flex items-center space-x-3 md:space-x-4">
+          <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-orange-400 to-red-400 rounded-lg md:rounded-xl flex items-center justify-center">
+            <Wrench size={20} className="md:hidden text-white" />
+            <Wrench size={24} className="hidden md:block text-white" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-              <Sparkles size={20} className="text-orange-400" />
+            <h2 className="text-lg md:text-2xl font-bold text-white flex items-center gap-2">
+              <Sparkles size={16} className="md:hidden text-orange-400" />
+              <Sparkles size={20} className="hidden md:block text-orange-400" />
               Skills Management
             </h2>
-            <p className="text-gray-300">Organize your technical skills by categories</p>
+            <p className="text-sm md:text-base text-gray-300">Organize your technical skills by categories</p>
           </div>
         </div>
       </motion.div>
 
       {/* Add Forms */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
         {/* Add Category */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-2xl p-6 border border-slate-700/50 backdrop-blur-xl"
+          className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-xl md:rounded-2xl p-4 md:p-6 border border-slate-700/50 backdrop-blur-xl"
         >
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
-            <Plus size={18} className="mr-2 text-green-400" />
+          <h3 className="text-base md:text-lg font-semibold text-white mb-4 flex items-center">
+            <Plus size={16} className="md:hidden mr-2 text-green-400" />
+            <Plus size={18} className="hidden md:block mr-2 text-green-400" />
             Add New Category
           </h3>
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4">
             <input
               type="text"
               value={newCategory}
               onChange={(e) => setNewCategory(e.target.value)}
               placeholder="e.g., Web Development"
-              className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600/50 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent backdrop-blur-sm"
+              className="w-full px-3 py-2 md:px-4 md:py-3 bg-slate-900/50 border border-slate-600/50 rounded-lg md:rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent backdrop-blur-sm text-sm md:text-base"
             />
             <button
               onClick={handleAddCategory}
-              className="w-full flex items-center justify-center px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl hover:shadow-lg transition-all duration-300 font-medium"
+              className="w-full flex items-center justify-center px-3 py-2 md:px-4 md:py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg md:rounded-xl hover:shadow-lg transition-all duration-300 font-medium text-sm md:text-base"
             >
-              <Plus size={18} className="mr-2" />
+              <Plus size={16} className="md:hidden mr-2" />
+              <Plus size={18} className="hidden md:block mr-2" />
               Add Category
             </button>
           </div>
@@ -149,10 +153,11 @@ const SkillManager = () => {
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-2xl p-6 border border-slate-700/50 backdrop-blur-xl"
+          className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-xl md:rounded-2xl p-4 md:p-6 border border-slate-700/50 backdrop-blur-xl"
         >
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
-            <Tag size={18} className="mr-2 text-blue-400" />
+          <h3 className="text-base md:text-lg font-semibold text-white mb-4 flex items-center">
+            <Tag size={16} className="md:hidden mr-2 text-blue-400" />
+            <Tag size={18} className="hidden md:block mr-2 text-blue-400" />
             Add Skill to Category
           </h3>
           <div className="space-y-4">
@@ -246,3 +251,4 @@ const SkillManager = () => {
 };
 
 export default SkillManager;
+

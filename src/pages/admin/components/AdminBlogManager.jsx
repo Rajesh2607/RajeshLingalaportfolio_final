@@ -272,7 +272,7 @@ const AdminBlogManager = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-white text-sm font-medium mb-2 flex items-center">
+                <label className="flex items-center text-white text-sm font-medium mb-2">
                   <BookOpen size={16} className="mr-2 text-red-400" />
                   Title
                 </label>
@@ -287,7 +287,7 @@ const AdminBlogManager = () => {
               </div>
               
               <div>
-                <label className="block text-white text-sm font-medium mb-2 flex items-center">
+                <label className="flex items-center text-white text-sm font-medium mb-2">
                   <Calendar size={16} className="mr-2 text-blue-400" />
                   Date
                 </label>
@@ -314,7 +314,7 @@ const AdminBlogManager = () => {
               </div>
               
               <div>
-                <label className="block text-white text-sm font-medium mb-2 flex items-center">
+                <label className="flex items-center text-white text-sm font-medium mb-2">
                   <Tag size={16} className="mr-2 text-purple-400" />
                   Category
                 </label>
@@ -330,7 +330,7 @@ const AdminBlogManager = () => {
             </div>
             
             <div>
-              <label className="block text-white text-sm font-medium mb-2 flex items-center">
+              <label className="flex items-center text-white text-sm font-medium mb-2">
                 <ImageIcon size={16} className="mr-2 text-cyan-400" />
                 Featured Image
               </label>
@@ -388,3 +388,4 @@ const AdminBlogManager = () => {
 };
 
 export default AdminBlogManager;
+

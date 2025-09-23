@@ -225,7 +225,7 @@ const AboutManager = () => {
   }
 
   return (
-    <div className="space-y-8 p-6">
+    <div className="space-y-6 md:space-y-8 p-3 md:p-6">
       {/* Notification */}
       <AnimatePresence>
         {notification.show && (
@@ -233,18 +233,23 @@ const AboutManager = () => {
             initial={{ opacity: 0, y: -50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -50, scale: 0.9 }}
-            className={`fixed top-4 right-4 z-50 p-4 rounded-xl shadow-2xl flex items-center space-x-3 backdrop-blur-xl border ${
+            className={`fixed top-4 right-4 z-50 p-3 md:p-4 rounded-xl shadow-2xl flex items-center space-x-2 md:space-x-3 backdrop-blur-xl border max-w-xs md:max-w-sm ${
               notification.type === 'success' 
                 ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-300' 
                 : 'bg-red-500/20 border-red-500/50 text-red-300'
             }`}
           >
             {notification.type === 'success' ? (
-              <CheckCircle size={20} />
+              <CheckCircle size={16} className="md:hidden" />
             ) : (
-              <AlertCircle size={20} />
+              <AlertCircle size={16} className="md:hidden" />
             )}
-            <span className="font-medium">{notification.message}</span>
+            {notification.type === 'success' ? (
+              <CheckCircle size={20} className="hidden md:block" />
+            ) : (
+              <AlertCircle size={20} className="hidden md:block" />
+            )}
+            <span className="font-medium text-sm md:text-base">{notification.message}</span>
           </motion.div>
         )}
       </AnimatePresence>
@@ -253,18 +258,20 @@ const AboutManager = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-purple-500/20 to-cyan-500/20 rounded-2xl p-6 border border-purple-500/30 backdrop-blur-xl"
+        className="bg-gradient-to-br from-purple-500/20 to-cyan-500/20 rounded-xl md:rounded-2xl p-4 md:p-6 border border-purple-500/30 backdrop-blur-xl"
       >
-        <div className="flex items-center space-x-4">
-          <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-cyan-400 rounded-xl flex items-center justify-center">
-            <User size={24} className="text-white" />
+        <div className="flex items-center space-x-3 md:space-x-4">
+          <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-purple-400 to-cyan-400 rounded-lg md:rounded-xl flex items-center justify-center">
+            <User size={20} className="md:hidden text-white" />
+            <User size={24} className="hidden md:block text-white" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-              <Sparkles size={20} className="text-purple-400" />
+            <h2 className="text-lg md:text-2xl font-bold text-white flex items-center gap-2">
+              <Sparkles size={16} className="md:hidden text-purple-400" />
+              <Sparkles size={20} className="hidden md:block text-purple-400" />
               About Section Management
             </h2>
-            <p className="text-gray-300">Manage your personal information and profile</p>
+            <p className="text-sm md:text-base text-gray-300">Manage your personal information and profile</p>
           </div>
         </div>
       </motion.div>
@@ -481,3 +488,4 @@ const AboutManager = () => {
 };
 
 export default AboutManager;
+

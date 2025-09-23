@@ -167,7 +167,7 @@ const SocialMediaManager = () => {
               />
             </div>
             <div>
-              <label className="block text-white text-sm font-medium mb-2 flex items-center">
+              <label className="flex items-center text-white text-sm font-medium mb-2">
                 <LinkIcon size={16} className="mr-2 text-blue-400" />
                 Account URL
               </label>
@@ -268,7 +268,7 @@ const SocialMediaManager = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-white text-sm font-medium mb-2 flex items-center">
+                  <label className="flex items-center text-white text-sm font-medium mb-2">
                     <LinkIcon size={16} className="mr-2 text-blue-400" />
                     Account URL
                   </label>
@@ -305,3 +305,4 @@ const SocialMediaManager = () => {
 };
 
 export default SocialMediaManager;
+
