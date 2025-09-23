@@ -1,0 +1,36 @@
+# Robots.txt for Rajesh Lingala Portfolio
+# https://rajeshlingala-portfolio.vercel.app
+
+User-agent: *
+Allow: /
+
+# Disallow admin pages
+Disallow: /admin/
+Disallow: /admin/*
+
+# Allow important pages
+Allow: /
+Allow: /whoiam
+Allow: /projects
+Allow: /certificates
+Allow: /blog
+Allow: /blog/*
+
+# Sitemap location
+Sitemap: https://rajeshlingala-portfolio.vercel.app/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1
+
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+
+User-agent: Slurp
+Allow: /
+Disallow: /admin/

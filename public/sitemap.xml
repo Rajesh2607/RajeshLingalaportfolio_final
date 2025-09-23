@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://rajeshlingala-portfolio.vercel.app/</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://firebasestorage.googleapis.com/v0/b/myprofolio-34d7c.firebasestorage.app/o/profile%2FWhatsApp%20Image%202025-04-20%20at%2018.48.10_4a2d17cb.jpg?alt=media&token=5ac51520-47e7-4799-ab7a-439ef0a4efc2</image:loc>
+      <image:title>Rajesh Lingala - Frontend React Developer</image:title>
+      <image:caption>Professional portfolio of Rajesh Lingala, Frontend React Developer from India</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Who I Am Page -->
+  <url>
+    <loc>https://rajeshlingala-portfolio.vercel.app/whoiam</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Projects Page -->
+  <url>
+    <loc>https://rajeshlingala-portfolio.vercel.app/projects</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Certificates Page -->
+  <url>
+    <loc>https://rajeshlingala-portfolio.vercel.app/certificates</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Blog Page -->
+  <url>
+    <loc>https://rajeshlingala-portfolio.vercel.app/blog</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+</urlset>
