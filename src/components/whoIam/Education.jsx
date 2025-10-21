@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { GraduationCap, Calendar } from 'lucide-react';
+import { GraduationCap, Calendar, Award } from 'lucide-react';
 import { db } from '../../firebase/config';
 import { collection, getDocs } from 'firebase/firestore';
 import { motion } from 'framer-motion';
@@ -58,35 +58,42 @@ const Education = () => {
 
   if (loading) {
     return (
-    <section className="py-20 bg-navy text-white">
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-            <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-400 text-transparent bg-clip-text">
-              Education
-            </span>
-          </h2>
+      <section className="py-20 bg-navy text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+              <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-400 text-transparent bg-clip-text">
+                Education
+              </span>
+            </h2>
 
-          <div className="relative pl-8 before:content-[''] before:absolute before:left-0 before:top-2 before:bottom-2 before:w-0.5 before:bg-gradient-to-b before:from-purple-400 before:via-cyan-400 before:to-blue-400 space-y-12">
-            {Array.from({ length: 3 }).map((_, index) => (
-              <div key={index} className="relative animate-pulse">
-                <div className="absolute left-0 w-4 h-4 bg-cyan-400 rounded-full transform -translate-x-2 mt-1.5"></div>
-                <div className="bg-midnight bg-opacity-70 rounded-xl p-6 md:p-8 shadow-xl space-y-4">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                    <div className="h-4 bg-gray-600 rounded w-1/2" />
-                    <div className="h-3 bg-gray-700 rounded w-1/4" />
+            <div className="space-y-16">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <div key={index} className="relative animate-pulse">
+                  <div className="flex items-center gap-8">
+                    {/* Circular image placeholder */}
+                    <div className="w-40 h-40 md:w-48 md:h-48 rounded-full bg-gray-700 flex-shrink-0"></div>
+                    
+                    {/* Timeline connector */}
+                    <div className="flex items-center">
+                      <div className="w-12 md:w-16 h-0.5 bg-gray-600"></div>
+                    </div>
+
+                    {/* Info card placeholder */}
+                    <div className="flex-1 bg-gray-800 rounded-xl p-6 md:p-8 space-y-4">
+                      <div className="h-6 bg-gray-600 rounded w-3/4"></div>
+                      <div className="h-5 bg-gray-700 rounded w-1/2"></div>
+                      <div className="h-4 bg-gray-700 rounded w-2/3"></div>
+                      <div className="h-4 bg-gray-700 rounded w-1/3"></div>
+                    </div>
                   </div>
-                  <div className="h-4 bg-gray-600 rounded w-1/3" />
-                  <div className="h-3 bg-gray-700 rounded w-1/2" />
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
-
+      </section>
+    );
   }
 
   return (
@@ -96,58 +103,156 @@ const Education = () => {
       className="py-20 bg-navy text-white transition-all duration-1000 ease-out opacity-0 translate-y-10"
     >
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-            <div className="flex flex-col items-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-center">
-                <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-400 text-transparent bg-clip-text">
-                  Education
-                </span>
-              </h2>
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col items-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-center">
+              <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-400 text-transparent bg-clip-text">
+                Education
+              </span>
+            </h2>
 
-              {/* Gradient line below */}
-           <>
-          <br />
-          </>
-        <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: "100%" }}
-          transition={{ duration: 1.2, delay: 0.4, ease: "easeOut" }}
-          viewport={{ once: true }}
-          className="relative"
-          style={{ maxWidth: "140px" }}
-        >
-          <div className="h-1 bg-gradient-to-r from-transparent via-purple-400 through-cyan-400 to-transparent rounded-full"></div>
-          <div className="absolute inset-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full blur-sm opacity-60"></div>
-        </motion.div>
-            </div>
+            <br />
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: "100%" }}
+              transition={{ duration: 1.2, delay: 0.4, ease: "easeOut" }}
+              viewport={{ once: true }}
+              className="relative"
+              style={{ maxWidth: "140px" }}
+            >
+              <div className="h-1 bg-gradient-to-r from-transparent via-purple-400 through-cyan-400 to-transparent rounded-full"></div>
+              <div className="absolute inset-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full blur-sm opacity-60"></div>
+            </motion.div>
+          </div>
 
-          <div className="relative pl-8 before:content-[''] before:absolute before:left-0 before:top-2 before:bottom-2 before:w-0.5 before:bg-gradient-to-b before:from-purple-400 before:via-cyan-400 before:to-blue-400 space-y-12">
-            {educationData.map((edu, index) => (
-              <div 
-                key={index}
-                className="education-item opacity-0 translate-y-10 transition-all duration-700 ease-out"
-              >
-                <div className="absolute left-0 w-4 h-4 bg-cyan-400 rounded-full transform -translate-x-2 mt-1.5"></div>
-                <div className="relative bg-navy rounded-lg p-6 md:p-8 shadow-lg border border-gray-600 hover:border-cyan-400 transition-colors duration-300
-  before:absolute before:top-0 before:bottom-0 before:left-0 before:w-1 before:bg-gradient-to-b before:from-purple-400 before:to-cyan-400 before:rounded-full
-  after:absolute after:top-0 after:bottom-0 after:right-0 after:w-1 after:bg-gradient-to-b after:from-purple-400 after:to-cyan-400 after:rounded-full
-">
-
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                    <div className="text-xl font-semibold text-purple-300">{edu.institution}</div>
-                    <div className="flex items-center text-cyan-400 mt-2 md:mt-0">
-                      <Calendar className="mr-2" size={16} />
-                      <span>{edu.startYear || 'Unknown'} - {edu.endYear || 'Present'}</span>
+          {/* Timeline with education items */}
+          <div className="relative">
+            <div className="space-y-16 md:space-y-24">
+              {educationData.map((edu, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                  className="education-item opacity-0 translate-y-10 transition-all duration-700 ease-out relative"
+                >
+                  <div className="flex flex-col md:flex-row items-center md:items-center gap-6">
+                    {/* Left: Circular college image */}
+                    <div className="relative flex-shrink-0 group z-10">
+                      <div className="w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full overflow-hidden border-2 border-transparent bg-gradient-to-br from-purple-400 via-cyan-400 to-blue-400 p-0.5 shadow-xl group-hover:scale-105 transition-transform duration-300">
+                        <div className="w-full h-full rounded-full overflow-hidden bg-navy">
+                          {edu.image ? (
+                            <img 
+                              src={edu.image} 
+                              alt={edu.institution}
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                                e.target.nextSibling.style.display = 'flex';
+                              }}
+                            />
+                          ) : null}
+                          <div 
+                            className={`w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-900/50 to-cyan-900/50 ${edu.image ? 'hidden' : 'flex'}`}
+                          >
+                            <GraduationCap size={80} className="text-cyan-400" />
+                          </div>
+                        </div>
+                      </div>
+                      {/* Glow effect - minimized */}
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-400 via-cyan-400 to-blue-400 opacity-10 blur-lg group-hover:opacity-15 transition-opacity duration-300"></div>
                     </div>
+
+                    {/* Timeline connection section - Hidden on mobile */}
+                    <div className="hidden md:flex items-center relative z-10">
+                      {/* Horizontal line from image to timeline dot */}
+                      <div className="w-10 lg:w-12 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400"></div>
+                      
+                      {/* Timeline dot with vertical line */}
+                      <div className="relative flex items-center justify-center">
+                        {/* Vertical line segment - from previous dot to this dot */}
+                        {index > 0 && (
+                          <div 
+                            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0.5 bg-gradient-to-b from-purple-400 via-cyan-400 to-blue-400" 
+                            style={{ height: '12rem', marginBottom: '0.125rem' }}>
+                          </div>
+                        )}
+                        
+                        {/* Vertical line segment - from this dot to next dot */}
+                        {index < educationData.length - 1 && (
+                          <div 
+                            className="absolute top-0 left-1/2 transform -translate-x-1/2 w-0.5 bg-gradient-to-b from-purple-400 via-cyan-400 to-blue-400" 
+                            style={{ height: '23rem', marginTop: '0.125rem' }}>
+                          </div>
+                        )}
+                        
+                        {/* Center dot */}
+                        <div className="w-4 h-4 rounded-full bg-gradient-to-br from-purple-400 to-cyan-400 shadow-lg shadow-cyan-400/50 relative z-10"></div>
+                      </div>
+                      
+                      {/* Horizontal line from dot to card */}
+                      <div className="w-20 lg:w-28 h-0.5 bg-gradient-to-r from-purple-400 to-cyan-400"></div>
+                    </div>
+
+                    {/* Right: Education info card */}
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      className="flex-1 w-full md:min-w-[450px] lg:min-w-[550px] bg-gradient-to-br from-[#112240] to-[#1a2f4a] rounded-xl p-8 md:p-10 shadow-2xl border border-gray-700 hover:border-cyan-400/50 transition-all duration-300 relative overflow-hidden"
+                    >
+                      {/* Gradient bars on edges */}
+                      <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-purple-400 to-cyan-400"></div>
+                      <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-purple-400 to-cyan-400"></div>
+
+                      {/* Institution name */}
+                      <h3 className="text-2xl md:text-3xl font-bold mb-3">
+                        <span className="bg-gradient-to-r from-purple-300 via-cyan-300 to-blue-300 text-transparent bg-clip-text">
+                          {edu.institution}
+                        </span>
+                      </h3>
+
+                      {/* Degree name */}
+                      <div className="flex items-center mb-3">
+                        <Award className="text-purple-400 mr-3" size={20} />
+                        <p className="text-xl font-semibold text-white">{edu.degree}</p>
+                      </div>
+
+                      {/* Course/Field of study */}
+                      <div className="flex items-center mb-4">
+                        <GraduationCap className="text-cyan-400 mr-3" size={18} />
+                        <p className="text-lg text-gray-300">{edu.fieldOfStudy}</p>
+                      </div>
+
+                      {/* Year of study */}
+                      <div className="flex items-center mb-4">
+                        <Calendar className="text-blue-400 mr-3" size={18} />
+                        <span className="text-cyan-400 font-medium">
+                          {edu.startYear || 'Unknown'} - {edu.endYear || 'Present'}
+                        </span>
+                      </div>
+
+                      {/* Description points */}
+                      {edu.description && edu.description.length > 0 && (
+                        <div className="mt-6 pt-6 border-t border-gray-600/50">
+                          <ul className="space-y-3">
+                            {edu.description.map((point, idx) => (
+                              <li key={idx} className="flex items-start text-gray-300">
+                                <span className="text-cyan-400 mr-3 mt-1 flex-shrink-0">•</span>
+                                <span className="text-sm md:text-base leading-relaxed">{point}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Decorative corner elements */}
+                      <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-cyan-400/10 to-transparent rounded-bl-full"></div>
+                      <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-purple-400/10 to-transparent rounded-tr-full"></div>
+                    </motion.div>
                   </div>
-                  <div className="flex items-center mb-2">
-                    <GraduationCap className="text-purple-400 mr-3" size={20} />
-                    <p className="text-white font-medium">{edu.degree}</p>
-                  </div>
-                  <p className="text-gray-400 italic">{edu.fieldOfStudy}</p>
-                </div>
-              </div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
