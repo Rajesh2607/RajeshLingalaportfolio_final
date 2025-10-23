@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../../../firebase/config';
+import { db, storage } from '../../../firebase/config';
 import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc, query, orderBy } from 'firebase/firestore';
-import { Briefcase, Plus, Trash2, Edit2, Save, X, MapPin, Calendar, Building, Sparkles } from 'lucide-react';
+import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
+import { Briefcase, Plus, Trash2, Edit2, Save, X, MapPin, Calendar, Building, Sparkles, Upload, Image as ImageIcon, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ExperienceManager = () => {
   const [experiences, setExperiences] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null);
+  const [logoFile, setLogoFile] = useState(null);
+  const [logoPreview, setLogoPreview] = useState(null);
+  const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     company: '',
@@ -15,6 +19,8 @@ const ExperienceManager = () => {
     period: '',
     description: [],
     order: 0,
+    logo: '',
+    website: '',
   });
 
   useEffect(() => {
@@ -39,11 +45,26 @@ const ExperienceManager = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setUploading(true);
     try {
+      let logoURL = formData.logo;
+
+      // Upload logo if a new file is selected
+      if (logoFile) {
+        const logoRef = ref(storage, `experience-logos/${Date.now()}_${logoFile.name}`);
+        await uploadBytes(logoRef, logoFile);
+        logoURL = await getDownloadURL(logoRef);
+      }
+
+      const dataToSave = {
+        ...formData,
+        logo: logoURL,
+      };
+
       if (editingId) {
-        await updateDoc(doc(db, 'experiences', editingId), formData);
+        await updateDoc(doc(db, 'experiences', editingId), dataToSave);
       } else {
-        await addDoc(collection(db, 'experiences'), formData);
+        await addDoc(collection(db, 'experiences'), dataToSave);
       }
       setFormData({
         title: '',
@@ -52,12 +73,18 @@ const ExperienceManager = () => {
         period: '',
         description: [],
         order: 0,
+        logo: '',
+        website: '',
       });
       setEditingId(null);
+      setLogoFile(null);
+      setLogoPreview(null);
       fetchExperiences();
     } catch (error) {
       console.error('Error saving experience:', error);
       alert('Error saving experience');
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -83,6 +110,26 @@ const ExperienceManager = () => {
         : [],
     });
     setEditingId(experience.id);
+    setLogoPreview(experience.logo || null);
+    setLogoFile(null);
+  };
+
+  const handleLogoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setLogoFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setLogoPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeLogo = () => {
+    setLogoFile(null);
+    setLogoPreview(null);
+    setFormData({ ...formData, logo: '' });
   };
 
   const addDescriptionPoint = () => {
@@ -221,6 +268,57 @@ const ExperienceManager = () => {
                 required
               />
             </div>
+            <div>
+              <label className="flex items-center text-white text-sm font-medium mb-2">
+                <ExternalLink size={16} className="mr-2 text-indigo-400" />
+                Company Website (Optional)
+              </label>
+              <input
+                type="url"
+                value={formData.website}
+                onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600/50 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent backdrop-blur-sm"
+                placeholder="e.g., https://company.com"
+              />
+            </div>
+          </div>
+
+          {/* Logo Upload */}
+          <div>
+            <label className="flex items-center text-white text-sm font-medium mb-2">
+              <ImageIcon size={16} className="mr-2 text-pink-400" />
+              Company Logo (Optional)
+            </label>
+            <div className="flex items-center gap-4">
+              <div className="flex-1">
+                <label className="flex items-center justify-center w-full px-4 py-3 bg-slate-900/50 border-2 border-dashed border-slate-600/50 rounded-xl cursor-pointer hover:border-pink-400/50 transition-colors">
+                  <Upload size={20} className="mr-2 text-pink-400" />
+                  <span className="text-gray-300">Choose Logo Image</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleLogoChange}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+              {logoPreview && (
+                <div className="relative">
+                  <img
+                    src={logoPreview}
+                    alt="Logo preview"
+                    className="w-16 h-16 rounded-lg object-cover border-2 border-pink-400/50"
+                  />
+                  <button
+                    type="button"
+                    onClick={removeLogo}
+                    className="absolute -top-2 -right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Description Points */}
@@ -267,10 +365,11 @@ const ExperienceManager = () => {
           <div className="flex justify-end">
             <button
               type="submit"
-              className="flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:shadow-lg transition-all duration-300 font-medium"
+              disabled={uploading}
+              className="flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:shadow-lg transition-all duration-300 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Save className="mr-2" size={20} />
-              {editingId ? 'Update Experience' : 'Add Experience'}
+              {uploading ? 'Uploading...' : editingId ? 'Update Experience' : 'Add Experience'}
             </button>
           </div>
         </form>
@@ -291,7 +390,16 @@ const ExperienceManager = () => {
             >
               <div className="flex justify-between items-start mb-4">
                 <div className="flex-1">
-                  <h4 className="text-xl font-bold text-white mb-2">{experience.title}</h4>
+                  <div className="flex items-center gap-3 mb-2">
+                    {experience.logo && (
+                      <img
+                        src={experience.logo}
+                        alt={`${experience.company} logo`}
+                        className="w-10 h-10 rounded-lg object-cover border border-pink-400/50"
+                      />
+                    )}
+                    <h4 className="text-xl font-bold text-white">{experience.title}</h4>
+                  </div>
                   <div className="flex flex-wrap gap-4 text-sm text-gray-300 mb-3">
                     <div className="flex items-center">
                       <Building size={14} className="mr-1 text-purple-400" />
