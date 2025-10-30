@@ -45,12 +45,10 @@ const HeroSection = ({ about }) => {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="text-2xl sm:text-4xl md:text-5xl font-bold text-white mb-3 leading-snug"
           >
-            <span className="relative">
-              <span className="absolute -inset-1 rounded-lg bg-gradient-to-r from-purple-400/20 via-cyan-400/20 to-blue-400/20 blur-lg"></span>
-              <span className="relative bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-400 text-transparent bg-clip-text animate-gradient bg-[length:200%_auto]">
-                Hi, I'm
-              </span>
+            <span className="text-cyan-400">
+              Hi, 
             </span>
+            <span className='text-red-500'> I'm</span>
           </motion.h1>
 
           <motion.h1

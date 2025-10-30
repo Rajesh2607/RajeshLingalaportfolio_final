@@ -71,7 +71,7 @@ const AboutSection = ({ about }) => (
               viewport={{ once: true }}
               className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-wide"
             >
-              <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-400 text-transparent bg-clip-text">
+              <span className="">
                 Short Bio About Me
               </span>
             </motion.h2>

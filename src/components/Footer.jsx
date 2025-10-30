@@ -158,7 +158,7 @@ const Footer = () => {
             <motion.h2
               className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 relative"
               style={{
-                background: 'linear-gradient(135deg, #17c0f8, #a855f7)',
+                background: 'linear-gradient(135deg, red-500,cyan-400)',
                 backgroundSize: '200% 200%',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',

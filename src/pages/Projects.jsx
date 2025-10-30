@@ -459,7 +459,7 @@ const Projects = () => {
         {/* Domain Header */}
         <div className="text-center mb-6">
           <h2 className="text-2xl md:text-3xl font-bold mb-3">
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 text-transparent bg-clip-text">
+            <span >
               {domain}
             </span>
           </h2>
@@ -559,7 +559,7 @@ const Projects = () => {
             className="text-center max-w-4xl mx-auto"
           >
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 text-transparent bg-clip-text">
+              <span >
                 Project Portfolio
               </span>
             </h1>
@@ -574,7 +574,7 @@ const Projects = () => {
                 <div className="text-gray-400 text-xs">Projects</div>
               </div>
               <div className="text-center">
-                <div className="text-xl font-bold text-purple-400 mb-1">{Object.keys(groupedProjects).length}</div>
+                <div className="text-xl font-bold text-red-400 mb-1">{Object.keys(groupedProjects).length}</div>
                 <div className="text-gray-400 text-xs">Domains</div>
               </div>
               <div className="text-center">

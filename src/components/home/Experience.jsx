@@ -202,7 +202,7 @@ const Experience = () => {
           <div className="flex items-center">
             <Briefcase size={24} className="text-[#17c0f8] mr-2" />
             <h2 className="text-3xl font-bold text-white ">
-              <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-400 text-transparent bg-clip-text">
+              <span >
                 Experience
               </span>
             </h2>

@@ -71,7 +71,7 @@ const About = () => {
         <div className="max-w-5xl mx-auto">
         <div className="flex flex-col items-center mb-16">
         <h2 className="text-4xl md:text-5xl font-bold text-center">
-          <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-400 text-transparent bg-clip-text">
+          <span className="">
             What I Do?
           </span>
         </h2>

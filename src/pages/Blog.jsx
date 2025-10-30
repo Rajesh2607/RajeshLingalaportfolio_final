@@ -247,7 +247,7 @@ const Blog = () => {
             className="relative text-center max-w-5xl mx-auto"
           >
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8">
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 text-transparent bg-clip-text">
+              <span >
                 My Blog
               </span>
             </h1>

@@ -75,7 +75,7 @@ const Skills = () => {
           <div className="flex items-center">
             <Code2 size={24} className="text-[#17c0f8] mr-3" />
             <h2 className="text-2xl sm:text-3xl font-bold text-white">
-              <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-400 text-transparent bg-clip-text">
+              <span >
                 Skills
               </span>
             </h2>

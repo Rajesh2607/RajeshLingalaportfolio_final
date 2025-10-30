@@ -106,7 +106,7 @@ const Education = () => {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col items-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-center">
-              <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-400 text-transparent bg-clip-text">
+              <span >
                 Education
               </span>
             </h2>

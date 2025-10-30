@@ -57,7 +57,7 @@ const SocialMedia = () => {
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col items-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-center">
-                <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-400 text-transparent bg-clip-text">
+                <span >
                   Connect With Me
                 </span>
               </h2>
@@ -108,7 +108,7 @@ const SocialMedia = () => {
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-col items-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-center">
-              <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-400 text-transparent bg-clip-text">
+              <span >
                 Connect With Me
               </span>
             </h2>
@@ -144,8 +144,8 @@ const SocialMedia = () => {
                     {getIcon(link.name)}
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold">{link.name}</h3>
-                    <p className="text-gray-400 text-sm">Follow me on {link.name}</p>
+                    <h3 className="text-xl text-cyan-400 font-semibold">{link.name}</h3>
+                    <p className="text-white text-sm">Follow me on <span className="text-red-500">{link.name}</span></p>
                   </div>
                 </div>
               </a>

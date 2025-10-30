@@ -308,7 +308,7 @@ const Certificates = () => {
             transition={{ delay: domainIndex * 0.2 + 0.3 }}
             className="text-4xl md:text-5xl font-bold mb-6"
           >
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 text-transparent bg-clip-text">
+            <span >
               {domain}
             </span>
           </motion.h2>
@@ -425,8 +425,8 @@ const Certificates = () => {
             className="text-center max-w-5xl mx-auto"
           >
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8">
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 text-transparent bg-clip-text">
-                Professional Certificates
+              <span >
+                My Certificates
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed">
