@@ -124,7 +124,7 @@ const ExperienceCard = ({ experience, index }) => {
                 href={experience.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r to-red-500/70 from-cyan-400/70 hover:from-red-500/20 hover:to-cyan-400/20 text-white rounded-lg transition-all duration-300 hover:scale-105 border border-gradient-to-r from-red-500/30 to-cyan-400/30"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r to-red-200 from-cyan-400 hover:from-red-300 hover:to-cyan-400 text-white rounded-lg transition-all duration-300 hover:scale-105 border border-gradient-to-r from-red-400 to-cyan-400"
               >
                 <ExternalLink size={16} className="text-red-500" />
                 <span className="text-sm font-medium">Visit Website</span>
@@ -218,7 +218,7 @@ const Experience = () => {
           className="relative"
           style={{ maxWidth: "160px" }}
         >
-          <div className="h-1 bg-gradient-to-r from-transparent via-red-600 through-cyan-400 to-transparent rounded-full"></div>
+          <div className="h-1 bg-gradient-to-r from-transparent via-red-600 through-red-400 to-transparent rounded-full"></div>
           <div className="absolute inset-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full blur-sm opacity-60"></div>
         </motion.div>
 </div>
