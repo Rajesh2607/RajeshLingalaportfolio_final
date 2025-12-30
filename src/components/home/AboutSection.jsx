@@ -88,7 +88,7 @@ const AboutSection = ({ about }) => (
           className="relative"
           style={{ maxWidth: "400px" }}
         >
-          <div className="h-1 bg-gradient-to-r from-transparent via-purple-400 through-cyan-400 to-transparent rounded-full"></div>
+          <div className="h-1 bg-gradient-to-r from-transparent via-red-600 through-red-400 to-transparent rounded-full"></div>
           <div className="absolute inset-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full blur-sm opacity-60"></div>
         </motion.div>
             <motion.div
@@ -102,18 +102,6 @@ const AboutSection = ({ about }) => (
               <span className="text-gray-400 text-sm font-medium">Get to know me better</span>
               <Star size={16} className="text-yellow-400 fill-current" />
             </motion.div>
-        {/* Decorative elements */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="flex items-center space-x-4 mt-6"
-        >
-          <Sparkles size={20} className="text-purple-400 animate-pulse" />
-          <span className="text-gray-300 text-sm italic">Passionate • Creative • Dedicated</span>
-          <Sparkles size={20} className="text-cyan-400 animate-pulse" />
-        </motion.div>
       </div>
 
       {/* Enhanced Content Card */}
@@ -129,7 +117,7 @@ const AboutSection = ({ about }) => (
         <div className="absolute inset-0 bg-gradient-to-br from-[#1b3a70] to-[#1a2f4a] rounded-3xl"></div>
         
         {/* Animated border */}
-        <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-400 p-[2px]">
+        <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-red-600 via-cyan-400 via-red-300 to-blue-400 p-[2px]">
           <div className="h-full w-full bg-gradient-to-br from-[#1b3a70] to-[#1a2f4a] rounded-3xl"></div>
         </div>
 
@@ -177,7 +165,7 @@ const AboutSection = ({ about }) => (
                 {/* Button background with animation */}
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur-lg opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
                 
-                <div className="relative flex items-center gap-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-blue-600 hover:to-cyan-500 text-white px-8 py-4 rounded-2xl shadow-xl transition-all duration-300 transform group-hover:scale-105 group-hover:shadow-2xl">
+                <div className="relative flex items-center gap-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-blue-600 hover:to-red-500 text-white px-8 py-4 rounded-2xl shadow-xl transition-all duration-300 transform group-hover:scale-105 group-hover:shadow-2xl">
                   <MoreHorizontal size={24} className="group-hover:rotate-90 transition-transform duration-300" />
                   <span className="text-base sm:text-lg font-semibold">Discover My Journey</span>
                   <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-300" />
@@ -192,30 +180,6 @@ const AboutSection = ({ about }) => (
 
         </div>
 </motion.article>
-
-      {/* Bottom decorative section */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.9 }}
-        viewport={{ once: true }}
-        className="flex justify-center mt-12"
-      >
-        <div className="flex items-center space-x-6 text-gray-400">
-          <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
-            <span className="text-sm">Passionate</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-            <span className="text-sm">Innovative</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-            <span className="text-sm">Dedicated</span>
-          </div>
-        </div>
-      </motion.div>
     </motion.div>
   </section>
 );

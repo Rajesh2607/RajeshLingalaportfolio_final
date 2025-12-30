@@ -14,7 +14,7 @@ const HeroSection = ({ about }) => {
     setIsImageLoading(false);
   };
 
-  // Ensure about object has default values to prevent errors
+
   const safeAbout = {
     title: [],
     profilePic: '',
@@ -48,7 +48,7 @@ const HeroSection = ({ about }) => {
             <span className="text-cyan-400">
               Hi, 
             </span>
-            <span className='text-red-500'> I'm</span>
+            <span className='text-red-600'> I'm</span>
           </motion.h1>
 
           <motion.h1
@@ -67,21 +67,13 @@ const HeroSection = ({ about }) => {
             className="text-base sm:text-lg md:text-2xl font-medium text-gray-300 mb-6 h-[50px] sm:h-[60px] overflow-hidden"
           >
             I'm{' '}
-            <span className="text-cyan-400">
-              <Typewriter
-                words={
-                  Array.isArray(safeAbout.title) && safeAbout.title.length > 0
-                    ? safeAbout.title
-                    : ['Cloud & DevOps Engineer', 'UI/UX Designer', 'Full Stack Developer', 'Problem Solver']
-                }
-                loop={true}
-                cursor
-                cursorStyle="_"
-                typeSpeed={70}
-                deleteSpeed={50}
-                delaySpeed={1500}
-              />
-            </span>
+            <TypewriterWithColors
+              words={
+                Array.isArray(safeAbout.title) && safeAbout.title.length > 0
+                  ? safeAbout.title
+                  : ['Cloud & DevOps Engineer', 'UI/UX Designer', 'Full Stack Developer', 'Problem Solver']
+              }
+            />
           </motion.p>
 
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-start gap-4 sm:gap-6 mb-6">
@@ -121,17 +113,22 @@ const HeroSection = ({ about }) => {
               <div className="w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
             </div>
           )}
-          <img
-            src={safeAbout.profilePic || 'https://via.placeholder.com/450'}
-            alt="Profile of Lingala Rajesh"
-            className={`w-full h-full object-cover rounded-full border-4 border-[#17c0f8] shadow-2xl transition-opacity duration-500 ${
-              isImageLoading ? 'opacity-0' : 'opacity-100'
-            }`}
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-            loading="lazy"
-          />
-          <div className="absolute inset-0 rounded-full shadow-[0_0_40px_rgba(23,192,248,0.3)] pointer-events-none"></div>
+          <div 
+            className="w-full h-full rounded-full p-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-red-500 shadow-2xl"
+            style={{ background: 'conic-gradient(from 0deg, #17c0f8, #dd0606, #17c0f8)' }}
+          >
+            <img
+              src={safeAbout.profilePic || 'https://via.placeholder.com/450'}
+              alt="Profile of Lingala Rajesh"
+              className={`w-full h-full object-cover rounded-full transition-opacity duration-500 ${
+                isImageLoading ? 'opacity-0' : 'opacity-100'
+              }`}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+              loading="lazy"
+            />
+          </div>
+          <div className="absolute inset-0 rounded-full shadow-[0_0_40px_rgba(23,192,248,0.3),0_0_40px_rgba(221,6,6,0.3)] pointer-events-none"></div>
         </motion.div>
       </motion.div>
     </section>
@@ -195,6 +192,48 @@ const SocialLinks = () => {
         </Link>
       </motion.div>
     </nav>
+  );
+};
+
+const TypewriterWithColors = ({ words }) => {
+  const [displayText, setDisplayText] = useState('');
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  React.useEffect(() => {
+    const currentWord = words[wordIndex];
+    const speed = isDeleting ? 50 : 70;
+
+    const timer = setTimeout(() => {
+      if (!isDeleting) {
+        if (displayText.length < currentWord.length) {
+          setDisplayText(currentWord.slice(0, displayText.length + 1));
+        } else {
+          setTimeout(() => setIsDeleting(true), 1500);
+        }
+      } else {
+        if (displayText.length > 0) {
+          setDisplayText(currentWord.slice(0, displayText.length - 1));
+        } else {
+          setIsDeleting(false);
+          setWordIndex((wordIndex + 1) % words.length);
+        }
+      }
+    }, speed);
+
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, wordIndex, words]);
+
+  const spaceIndex = displayText.indexOf(' ');
+  const firstPart = spaceIndex !== -1 ? displayText.slice(0, spaceIndex) : displayText;
+  const secondPart = spaceIndex !== -1 ? displayText.slice(spaceIndex) : '';
+
+  return (
+    <span>
+      <span className="text-cyan-400">{firstPart}</span>
+      <span className="text-red-600">{secondPart}</span>
+      <span className="text-cyan-400">_</span>
+    </span>
   );
 };
 

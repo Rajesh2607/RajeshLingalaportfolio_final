@@ -39,7 +39,7 @@ const ExperienceCard = ({ experience, index }) => {
       {/* Timeline Node */}
       <div className="absolute left-1/2 top-0 transform -translate-x-1/2 translate-y-5 w-8 h-8 z-20">
         {/* Ping Animation */}
-        <div className="absolute inset-0 w-full h-full bg-[#17c0f8] rounded-full animate-ping opacity-20" />
+        <div className="absolute inset-0 w-full h-full bg-[#f81717] rounded-full animate-ping opacity-20" />
         
         {/* Static Small Dot */}
         <div className="absolute top-1/2 left-1/2 w-4 h-4 bg-[#17c0f8] rounded-full transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-300 group-hover:scale-110" />
@@ -124,9 +124,9 @@ const ExperienceCard = ({ experience, index }) => {
                 href={experience.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[#17c0f8]/10 hover:bg-[#17c0f8]/20 text-[#17c0f8] rounded-lg transition-all duration-300 hover:scale-105 border border-[#17c0f8]/30 hover:border-[#17c0f8]/50"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r to-red-500/70 from-cyan-400/70 hover:from-red-500/20 hover:to-cyan-400/20 text-white rounded-lg transition-all duration-300 hover:scale-105 border border-gradient-to-r from-red-500/30 to-cyan-400/30"
               >
-                <ExternalLink size={16} />
+                <ExternalLink size={16} className="text-red-500" />
                 <span className="text-sm font-medium">Visit Website</span>
               </a>
             )}
@@ -218,7 +218,7 @@ const Experience = () => {
           className="relative"
           style={{ maxWidth: "160px" }}
         >
-          <div className="h-1 bg-gradient-to-r from-transparent via-purple-400 through-cyan-400 to-transparent rounded-full"></div>
+          <div className="h-1 bg-gradient-to-r from-transparent via-red-600 through-cyan-400 to-transparent rounded-full"></div>
           <div className="absolute inset-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full blur-sm opacity-60"></div>
         </motion.div>
 </div>

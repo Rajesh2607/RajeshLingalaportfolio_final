@@ -107,7 +107,7 @@ const Contact = () => {
           ref={ref}
         >
           <h2 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem' }}>
-            Get in <span style={{ color: '#3b82f6' }}>Touch</span>
+           <span style={{color:'#05F2EE'}}>Get in </span><span style={{ color: '#F23305' }}>Touch</span>
           </h2>
           <p style={{ maxWidth: '640px', margin: '0 auto', color: '#94a3b8' }}>
             Have a project in mind or want to collaborate? Feel free to reach out!

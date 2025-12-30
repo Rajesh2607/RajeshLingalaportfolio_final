@@ -93,7 +93,7 @@ const Skills = () => {
             className="relative"
             style={{ maxWidth: "100px" }}
           >
-            <div className="h-1 bg-gradient-to-r from-transparent via-purple-400 through-cyan-400 to-transparent rounded-full"></div>
+            <div className="h-1 bg-gradient-to-r from-transparent via-red-600 through-red-400 to-transparent rounded-full"></div>
             <div className="absolute inset-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent rounded-full blur-sm opacity-60"></div>
           </motion.div>
           </div>
