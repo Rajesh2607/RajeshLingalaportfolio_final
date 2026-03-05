@@ -21,7 +21,6 @@ const Education = () => {
         );
         setEducationData(sortedData);
       } catch (error) {
-        console.error('Error fetching education data:', error);
       } finally {
         setLoading(false);
       }

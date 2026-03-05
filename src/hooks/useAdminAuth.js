@@ -18,7 +18,6 @@ export const useAdminAuth = () => {
           const adminEmails = snapshot.docs.map(doc => doc.data().email);
           setIsAdmin(adminEmails.includes(currentUser.email));
         } catch (error) {
-          console.error("Error fetching admin list from Firestore:", error);
           setIsAdmin(false);
         }
       } else {

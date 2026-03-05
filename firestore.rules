@@ -1,0 +1,138 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Security function: Check if user is authenticated admin
+    function isAdminByEmail() {
+      return request.auth != null && 
+             exists(/databases/$(database)/documents/admins) &&
+             get(/databases/$(database)/documents/admins).data.emails.hasAny([request.auth.token.email]);
+    }
+
+    // ===== ADMIN COLLECTION =====
+    // Only authenticated admins can read/write
+    match /admins/{document=**} {
+      allow read, write: if isAdminByEmail();
+    }
+
+    // ===== PUBLIC READ COLLECTIONS =====
+    // All these collections can be read by anyone, written only by admins
+
+    // Projects
+    match /projects/{projectId} {
+      allow read: if true;
+      allow create, update, delete: if isAdminByEmail();
+    }
+
+    // Blogs
+    match /blogs/{blogId} {
+      allow read: if true;
+      allow create, update, delete: if isAdminByEmail();
+    }
+
+    // Certificates
+    match /certificates/{certificateId} {
+      allow read: if true;
+      allow create, update, delete: if isAdminByEmail();
+    }
+
+    // About
+    match /about/{documentId} {
+      allow read: if true;
+      allow create, update, delete: if isAdminByEmail();
+    }
+
+    // Achievements
+    match /achievements/{achievementId} {
+      allow read: if true;
+      allow create, update, delete: if isAdminByEmail();
+    }
+
+    // Education
+    match /educations/{educationId} {
+      allow read: if true;
+      allow create, update, delete: if isAdminByEmail();
+    }
+
+    // Experience
+    match /experiences/{experienceId} {
+      allow read: if true;
+      allow create, update, delete: if isAdminByEmail();
+    }
+
+    // Skills
+    match /skills/{skillId} {
+      allow read: if true;
+      allow create, update, delete: if isAdminByEmail();
+    }
+
+    // Social Media
+    match /socialmedia/{documentId} {
+      allow read: if true;
+      allow create, update, delete: if isAdminByEmail();
+    }
+
+    // Hero
+    match /hero/{documentId} {
+      allow read: if true;
+      allow create, update, delete: if isAdminByEmail();
+    }
+
+    // ===== CONTACT SUBMISSIONS =====
+    // Public can create (submit), only admins can read
+    match /contactSubmissions/{submissionId} {
+      allow create: if true;
+      allow read, update, delete: if isAdminByEmail();
+    }
+
+    // ===== DEFAULT DENY =====
+    // Deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+
+    // ===== EDUCATION COLLECTION =====
+    // Public can read, only admins can write
+    match /education/{educationId} {
+      allow read: if request.auth == null || request.auth != null;
+      allow create, update, delete: if isAdminByEmail();
+    }
+
+    // ===== EXPERIENCE COLLECTION =====
+    // Public can read, only admins can write
+    match /experience/{experienceId} {
+      allow read: if request.auth == null || request.auth != null;
+      allow create, update, delete: if isAdminByEmail();
+    }
+
+    // ===== SKILLS COLLECTION =====
+    // Public can read, only admins can write
+    match /skills/{skillId} {
+      allow read: if request.auth == null || request.auth != null;
+      allow create, update, delete: if isAdminByEmail();
+    }
+
+    // ===== SOCIAL MEDIA COLLECTION =====
+    // Public can read, only admins can write
+    match /socialmedia/{documentId} {
+      allow read: if request.auth == null || request.auth != null;
+      allow create, update, delete: if isAdminByEmail();
+    }
+
+    // ===== HERO COLLECTION =====
+    // Public can read, only admins can write
+    match /hero/{documentId} {
+      allow read: if request.auth == null || request.auth != null;
+      allow create, update, delete: if isAdminByEmail();
+    }
+
+    // ===== DEFAULT DENY =====
+    // Deny all other access (default deny principle)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

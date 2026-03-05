@@ -27,7 +27,6 @@ const SkillManager = () => {
       });
       setSkillsData(data);
     } catch (error) {
-      console.error('Error fetching skills:', error);
     } finally {
       setLoading(false);
     }
@@ -44,7 +43,6 @@ const SkillManager = () => {
       setNewCategory('');
       fetchSkills();
     } catch (error) {
-      console.error('Error adding category:', error);
     }
   };
 
@@ -58,7 +56,6 @@ const SkillManager = () => {
       setNewSkill('');
       fetchSkills();
     } catch (error) {
-      console.error('Error adding skill:', error);
     }
   };
 
@@ -80,7 +77,7 @@ const SkillManager = () => {
         await deleteDoc(doc(db, 'skills', category));
         fetchSkills();
       } catch (error) {
-        console.error('Error deleting category:', error);
+
       }
     }
   };

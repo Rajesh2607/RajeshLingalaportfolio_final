@@ -21,7 +21,6 @@ const About = () => {
         });
         setAboutSections(sections);
       } catch (error) {
-        console.error('Error fetching about sections:', error);
         // Fallback to default sections if fetch fails
         setAboutSections([]);
       } finally {

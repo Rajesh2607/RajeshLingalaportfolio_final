@@ -45,10 +45,7 @@ const AdminLogin = () => {
       
       // Initialize persistent session that survives browser close
       initializePersistentSession();
-      
-      console.log('✅ Login successful - Persistent session initialized');
     } catch (error) {
-      console.error('Login error:', error);
       switch (error.code) {
         case 'auth/invalid-email':
           setError('Invalid email address format');

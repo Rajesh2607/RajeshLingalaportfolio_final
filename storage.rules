@@ -1,12 +1,51 @@
 rules_version = '2';
 
-// Craft rules based on data in your Firestore database
-// allow write: if firestore.get(
-//    /databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin;
 service firebase.storage {
   match /b/{bucket}/o {
+    
+    // Security functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+             exists(/databases/(default)/documents/admins) &&
+             get(/databases/(default)/documents/admins).data.emails.hasAny([request.auth.token.email]);
+    }
+
+    // Public image folders - allow read for all, write only for admins
+    match /public/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Admin uploads - only authenticated admins can write/read
+    match /admin/{allPaths=**} {
+      allow read, write: if isAdmin();
+    }
+
+    // User uploads - authenticated users can upload to their own folder
+    match /users/{userId}/{allPaths=**} {
+      allow read: if isAuthenticated() || true; // Allow public read for public content
+      allow write: if request.auth.uid == userId || isAdmin();
+    }
+
+    // Projects media folder - only admins can write
+    match /projects/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Blogs media folder - only admins can write
+    match /blogs/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Deny everything else by default
     match /{allPaths=**} {
-      allow read, write: if true;
+      allow read, write: if false;
     }
   }
 }

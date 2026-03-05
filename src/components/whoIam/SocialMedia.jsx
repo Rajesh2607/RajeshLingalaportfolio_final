@@ -18,7 +18,6 @@ const SocialMedia = () => {
         }));
         setSocialLinks(links);
       } catch (error) {
-        console.error('Error fetching social media accounts:', error);
       } finally {
         setLoading(false);
       }

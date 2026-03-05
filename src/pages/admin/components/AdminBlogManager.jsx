@@ -38,7 +38,6 @@ const AdminBlogManager = () => {
       const blogList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setBlogs(blogList);
     } catch (error) {
-      console.error('Error fetching blogs:', error);
     } finally {
       setLoading(false);
     }
@@ -50,7 +49,6 @@ const AdminBlogManager = () => {
         await deleteDoc(doc(db, 'blogs', id));
         fetchBlogs();
       } catch (error) {
-        console.error('Error deleting blog:', error);
       }
     }
   };
@@ -125,7 +123,6 @@ const AdminBlogManager = () => {
       setMode('view');
       fetchBlogs();
     } catch (error) {
-      console.error('Error saving blog:', error);
     } finally {
       setUploading(false);
     }

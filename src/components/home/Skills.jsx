@@ -54,7 +54,6 @@ const Skills = () => {
       setSkillsData(skills);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching skills:', error);
       setLoading(false);
     }
   };

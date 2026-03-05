@@ -10,7 +10,6 @@ const HeroSection = ({ about }) => {
 
   const handleImageLoad = () => setIsImageLoading(false);
   const handleImageError = () => {
-    console.warn('Failed to load profile image');
     setIsImageLoading(false);
   };
 

@@ -37,7 +37,6 @@ const ExperienceManager = () => {
       }));
       setExperiences(experienceData);
     } catch (error) {
-      console.error('Error fetching experiences:', error);
     } finally {
       setLoading(false);
     }
@@ -81,7 +80,6 @@ const ExperienceManager = () => {
       setLogoPreview(null);
       fetchExperiences();
     } catch (error) {
-      console.error('Error saving experience:', error);
       alert('Error saving experience');
     } finally {
       setUploading(false);
@@ -94,7 +92,6 @@ const ExperienceManager = () => {
         await deleteDoc(doc(db, 'experiences', id));
         fetchExperiences();
       } catch (error) {
-        console.error('Error deleting experience:', error);
         alert('Error deleting experience');
       }
     }

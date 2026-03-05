@@ -24,11 +24,9 @@ const Certificates = () => {
         setLoading(true);
         setError(null);
         
-        console.log('🔄 Fetching certificates from Firebase...');
         const querySnapshot = await getDocs(collection(db, 'certificates'));
         
         if (querySnapshot.empty) {
-          console.log('❌ No certificates found in database');
           setCertificates([]);
           setGroupedCertificates({});
           setDomains(['All']);
@@ -38,7 +36,6 @@ const Certificates = () => {
         const certs = [];
         querySnapshot.forEach((doc) => {
           const data = doc.data();
-          console.log('📄 Processing certificate:', doc.id, data);
           
           // Handle domain field safely
           let domainArray = [];
@@ -69,9 +66,6 @@ const Certificates = () => {
           certs.push(certificate);
         });
 
-        console.log('✅ Successfully processed certificates:', certs.length);
-        setCertificates(certs);
-
         // Group certificates by domain
         const grouped = {};
         certs.forEach(cert => {
@@ -83,6 +77,7 @@ const Certificates = () => {
           });
         });
 
+        setCertificates(certs);
         setGroupedCertificates(grouped);
 
         // Extract unique domains
@@ -93,14 +88,7 @@ const Certificates = () => {
         const domainList = ['All', ...Array.from(allDomains).sort()];
         setDomains(domainList);
 
-        console.log('🎯 Final state:', {
-          certificates: certs.length,
-          domains: domainList.length - 1,
-          grouped: Object.keys(grouped).length
-        });
-
       } catch (err) {
-        console.error("❌ Error fetching certificates:", err);
         setError(`Failed to load certificates: ${err.message}`);
       } finally {
         setLoading(false);
@@ -126,7 +114,10 @@ const Certificates = () => {
   };
 
   const filteredGroupedCertificates = getFilteredGroupedCertificates();
-  const totalCertificates = Object.values(filteredGroupedCertificates).flat().length;
+  // Count unique certificates (not duplicates when a cert is in multiple domains)
+  const totalCertificates = new Set(
+    Object.values(filteredGroupedCertificates).flat().map(cert => cert.id)
+  ).size;
 
   // Generate SEO data
   const breadcrumbs = generateBreadcrumbs(location.pathname);

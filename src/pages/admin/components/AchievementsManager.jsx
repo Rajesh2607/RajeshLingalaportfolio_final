@@ -30,7 +30,6 @@ const AchievementsManager = () => {
         const data = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
         setAchievements(data);
       } catch (error) {
-        console.error('Error fetching achievements:', error);
       } finally {
         setLoading(false);
       }
@@ -59,14 +58,12 @@ const AchievementsManager = () => {
         );
         setEditingId(null);
       } catch (error) {
-        console.error('Error updating achievement:', error);
       }
     } else {
       try {
         const docRef = await addDoc(collection(db, 'achievements'), newAchievement);
         setAchievements([...achievements, { ...newAchievement, id: docRef.id }]);
       } catch (error) {
-        console.error('Error adding achievement:', error);
       }
     }
 

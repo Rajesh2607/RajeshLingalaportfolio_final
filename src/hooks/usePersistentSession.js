@@ -36,7 +36,6 @@ export const usePersistentSessionCheck = () => {
           SECURITY_CONFIG.STORAGE_KEYS.LAST_ACTIVITY_TIME,
           now.toString()
         );
-        console.log('🔐 New persistent session created:', new Date(now).toLocaleString());
         return;
       }
 
@@ -46,16 +45,7 @@ export const usePersistentSessionCheck = () => {
       const sessionDuration = now - sessionStart;
       const absoluteTimeout = SECURITY_CONFIG.SESSION.ABSOLUTE_TIMEOUT;
 
-      console.log('🔍 Session Check:', {
-        sessionStart: new Date(sessionStart).toLocaleString(),
-        currentTime: new Date(now).toLocaleString(),
-        sessionDuration: Math.round(sessionDuration / 1000 / 60) + ' minutes',
-        maxDuration: Math.round(absoluteTimeout / 1000 / 60) + ' minutes',
-        expired: sessionDuration >= absoluteTimeout
-      });
-
       if (sessionDuration >= absoluteTimeout) {
-        console.log('❌ Session expired! Logging out...');
         
         // Session has expired
         try {
@@ -71,9 +61,7 @@ export const usePersistentSessionCheck = () => {
           
           // Sign out
           await signOut(auth);
-          console.log('✅ User logged out due to session expiry');
         } catch (error) {
-          console.error('Error during session expiry logout:', error);
         }
       } else {
         // Update last activity time
@@ -81,9 +69,6 @@ export const usePersistentSessionCheck = () => {
           SECURITY_CONFIG.STORAGE_KEYS.LAST_ACTIVITY_TIME,
           now.toString()
         );
-        
-        const remainingTime = absoluteTimeout - sessionDuration;
-        console.log(`✅ Session valid. ${Math.round(remainingTime / 1000 / 60)} minutes remaining.`);
       }
     };
 
@@ -113,7 +98,6 @@ export const initializePersistentSession = () => {
     SECURITY_CONFIG.STORAGE_KEYS.LAST_ACTIVITY_TIME,
     now.toString()
   );
-  console.log('🔐 Persistent session initialized:', new Date(now).toLocaleString());
 };
 
 /**
@@ -123,7 +107,6 @@ export const initializePersistentSession = () => {
 export const clearPersistentSession = () => {
   localStorage.removeItem(SECURITY_CONFIG.STORAGE_KEYS.SESSION_START_TIME);
   localStorage.removeItem(SECURITY_CONFIG.STORAGE_KEYS.LAST_ACTIVITY_TIME);
-  console.log('🗑️ Persistent session cleared');
 };
 
 /**

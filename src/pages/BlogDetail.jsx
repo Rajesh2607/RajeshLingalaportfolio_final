@@ -49,7 +49,6 @@ const BlogDetail = () => {
           }
         }
       } catch (error) {
-        console.error('Error fetching blog:', error);
       } finally {
         setLoading(false);
       }

@@ -22,7 +22,6 @@ class ProjectErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('Project component error:', error, errorInfo);
   }
 
   render() {
@@ -72,7 +71,6 @@ const Projects = () => {
         const querySnapshot = await getDocs(collection(db, 'projects'));
         
         if (querySnapshot.empty) {
-          console.log('No projects found in database');
           setProjects([]);
           setGroupedProjects({});
           return;
@@ -121,8 +119,6 @@ const Projects = () => {
         setCategories(uniqueCategories);
 
       } catch (err) {
-        console.error('Error fetching projects:', err);
-        
         let errorMessage = 'Failed to load projects. Please try again later.';
         
         if (err.code === 'permission-denied') {

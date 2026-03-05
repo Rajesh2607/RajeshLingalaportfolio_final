@@ -56,7 +56,6 @@ const AboutManager = () => {
         setPreviewUrl(data.profilePic || '');
       } else {
         // Initialize with empty data if document doesn't exist
-        console.log('Document does not exist, initializing with empty data');
         setAbout({
           title: [],
           description: '',
@@ -66,7 +65,6 @@ const AboutManager = () => {
         setPreviewUrl('');
       }
     } catch (error) {
-      console.error('Error fetching about data:', error);
       showNotification('error', `Failed to load data: ${error.message}`);
       
       // Initialize with empty data on error
@@ -140,9 +138,6 @@ const AboutManager = () => {
         updatedBy: user.uid
       };
 
-      console.log('Current user:', user.email);
-      console.log('Saving data:', dataToSave);
-      
       // Try updateDoc first
       try {
         await updateDoc(docRef, dataToSave);
@@ -150,7 +145,6 @@ const AboutManager = () => {
       } catch (updateError) {
         if (updateError.code === 'not-found') {
           // Document doesn't exist, create it
-          console.log('Document not found, creating new one...');
           await setDoc(docRef, dataToSave);
           showNotification('success', 'About section created successfully!');
         } else {
@@ -164,10 +158,6 @@ const AboutManager = () => {
       await fetchAboutData();
       
     } catch (error) {
-      console.error('Error updating about section:', error);
-      console.error('Error code:', error.code);
-      console.error('Error message:', error.message);
-      
       // More specific error messages
       if (error.code === 'permission-denied') {
         showNotification('error', 'Permission denied. Please check if you have admin access or contact the administrator.');

@@ -32,7 +32,6 @@ const HeroManager = () => {
         setNewImage(null);
       }
     } catch (error) {
-      console.error('Error fetching document:', error);
     } finally {
       setLoading(false);
     }
@@ -81,7 +80,6 @@ const HeroManager = () => {
       alert(`${currentSection} section updated successfully.`);
       fetchData();
     } catch (error) {
-      console.error('Error updating document:', error);
       alert('Failed to update document.');
     } finally {
       setUploading(false);

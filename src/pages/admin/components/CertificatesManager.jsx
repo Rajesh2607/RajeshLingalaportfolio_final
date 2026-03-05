@@ -60,7 +60,6 @@ const CertificatesManager = () => {
       }));
       setCertificates(certificateData);
     } catch (error) {
-      console.error('Error fetching certificates:', error);
     } finally {
       setLoading(false);
     }
@@ -102,7 +101,6 @@ const CertificatesManager = () => {
       const downloadURL = await getDownloadURL(snapshot.ref);
       return downloadURL;
     } catch (error) {
-      console.error('Error uploading image:', error);
       throw error;
     }
   };
@@ -170,7 +168,6 @@ const CertificatesManager = () => {
       resetForm();
       fetchCertificates();
     } catch (error) {
-      console.error('Error saving certificate:', error);
       alert('Error saving certificate');
     } finally {
       setUploading(false);
@@ -183,7 +180,6 @@ const CertificatesManager = () => {
         await deleteDoc(doc(db, 'certificates', id));
         fetchCertificates();
       } catch (error) {
-        console.error('Error deleting certificate:', error);
         alert('Error deleting certificate');
       }
     }

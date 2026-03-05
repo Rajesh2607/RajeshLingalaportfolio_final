@@ -34,7 +34,6 @@ const Home = () => {
           setAbout(docSnap.data());
         }
       } catch (error) {
-        console.error('Error fetching about data:', error);
       } finally {
         if (isMounted) {
           setLoading(false);

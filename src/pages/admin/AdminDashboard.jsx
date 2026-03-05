@@ -145,7 +145,6 @@ const AdminDashboard = () => {
         });
 
       } catch (error) {
-        console.error('Error fetching dashboard stats:', error);
       } finally {
         setStatsLoading(false);
       }
@@ -170,7 +169,6 @@ const AdminDashboard = () => {
       
       navigate('/admin/login');
     } catch (error) {
-      console.error('Error signing out:', error);
     } finally {
       setLoading(false);
     }

@@ -35,8 +35,6 @@ const Contact = () => {
       return
     }
 
-    console.log('Sending form data:', { name, email, subject, message })
-
     emailjs.sendForm(
       'service_k3a4wvj',
       'template_xtbfekn',
@@ -44,13 +42,11 @@ const Contact = () => {
       '0aPQCkeqkbL9-6ft_'
     )
       .then((result) => {
-        console.log('EmailJS Success:', result)
         setSubmitMessage('Your message has been sent successfully! I\'ll get back to you soon.')
         form.current.reset()
         setTimeout(() => setSubmitMessage(''), 7000)
       })
       .catch((error) => {
-        console.error('EmailJS Error:', error)
         setSubmitError(`Failed to send message: ${error.text || 'Please try again.'}`)
       })
       .finally(() => {

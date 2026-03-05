@@ -47,7 +47,6 @@ const Hero = () => {
         setProfessional({ id: 'Professional', ...professionalSnap.data() });
       }
     } catch (error) {
-      console.error('Error fetching hero data:', error);
     } finally {
       setLoading(false);
     }

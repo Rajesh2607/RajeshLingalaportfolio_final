@@ -155,7 +155,6 @@ const Experience = () => {
         }));
         setExperiences(experienceList);
       } catch (error) {
-        console.error('Error fetching experience data: ', error);
       }
     };
 

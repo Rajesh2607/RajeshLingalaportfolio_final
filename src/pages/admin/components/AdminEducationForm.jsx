@@ -39,7 +39,6 @@ const AdminEducationForm = () => {
       const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setEducationList(data);
     } catch (error) {
-      console.error('Error fetching education data:', error);
     } finally {
       setLoading(false);
     }
@@ -100,7 +99,6 @@ const AdminEducationForm = () => {
       
       setTimeout(() => setMessage(''), 3000);
     } catch (error) {
-      console.error('Error saving education:', error);
       setMessage('Error saving education details.');
     } finally {
       setUploading(false);
@@ -171,7 +169,6 @@ const AdminEducationForm = () => {
       setCrop({ x: 0, y: 0 });
       setZoom(1);
     } catch (error) {
-      console.error('Error cropping image:', error);
       setMessage('Error cropping image');
     }
   };

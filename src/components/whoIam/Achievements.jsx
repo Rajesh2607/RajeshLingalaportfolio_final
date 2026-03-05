@@ -23,7 +23,6 @@ const Achievements = () => {
         const data = querySnapshot.docs.map((doc) => doc.data());
         setAchievementData(data);
       } catch (error) {
-        console.error('Error fetching achievements data:', error);
       } finally {
         setLoading(false);
       }

@@ -64,7 +64,6 @@ const ProjectManager = () => {
       }));
       setProjects(projectData);
     } catch (error) {
-      console.error('Error fetching projects:', error);
     } finally {
       setLoading(false);
     }
@@ -137,7 +136,6 @@ const ProjectManager = () => {
       fetchProjects();
       clearForm();
     } catch (error) {
-      console.error('Error submitting project:', error);
     }
   };
 
@@ -151,7 +149,6 @@ const ProjectManager = () => {
         }
         fetchProjects();
       } catch (error) {
-        console.error('Error deleting project:', error);
       }
     }
   };

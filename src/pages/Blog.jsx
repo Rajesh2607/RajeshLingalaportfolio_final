@@ -183,7 +183,6 @@ const Blog = () => {
         const uniqueCategories = ['All', ...new Set(blogList.map(blog => blog.category).filter(Boolean))];
         setCategories(uniqueCategories);
       } catch (error) {
-        console.error('Error fetching blogs:', error);
       } finally {
         setIsLoading(false);
       }

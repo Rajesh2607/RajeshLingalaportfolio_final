@@ -116,7 +116,6 @@ const IntroAnimation = ({ onFinish }) => {
                         exit={{ opacity: 0, scale: 0.8 }}
                         transition={{ duration: 0.5 }}
                         onError={(e) => {
-                          console.warn(`Failed to load image: ${e.target.src}`);
                           e.target.style.display = 'none';
                         }}
                       />
