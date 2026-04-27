@@ -24,9 +24,16 @@ service cloud.firestore {
       return isAdminByUid() || isAdminByEmailConfig();
     }
 
-    // Admin registry documents
+    // Admin email config used for login bootstrap fallback.
+    match /admins/config {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // Admin registry documents (typically keyed by uid).
     match /admins/{adminId} {
-      allow read, write: if isAdmin();
+      allow read: if (isSignedIn() && request.auth.uid == adminId) || isAdmin();
+      allow write: if isAdmin();
     }
 
     // Public-read content, admin-write
