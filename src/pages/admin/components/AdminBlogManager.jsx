@@ -93,8 +93,7 @@ const AdminBlogManager = () => {
         imageUrl = await getDownloadURL(imageRef);
       }
 
-      const avatarRef = ref(storage, 'https://firebasestorage.googleapis.com/v0/b/myprofolio-34d7c.firebasestorage.app/o/profile%2FWhatsApp%20Image%202025-04-20%20at%2018.48.10_4a2d17cb.jpg?alt=media&token=5ac51520-47e7-4799-ab7a-439ef0a4efc2');
-      const avatarUrl = await getDownloadURL(avatarRef);
+      const avatarUrl = 'https://firebasestorage.googleapis.com/v0/b/myprofolio-34d7c.firebasestorage.app/o/profile%2FWhatsApp%20Image%202025-04-20%20at%2018.48.10_4a2d17cb.jpg?alt=media&token=5ac51520-47e7-4799-ab7a-439ef0a4efc2';
 
       const newBlogData = {
         ...blogData,
@@ -337,6 +336,17 @@ const AdminBlogManager = () => {
                 onChange={handleImageChange}
                 className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600/50 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent backdrop-blur-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-cyan-500/20 file:text-cyan-300 hover:file:bg-cyan-500/30"
               />
+              
+              {(imageFile || blogData.image) && (
+                <div className="mt-4">
+                  <p className="text-gray-300 text-sm mb-3">Image Preview:</p>
+                  <img
+                    src={imageFile ? URL.createObjectURL(imageFile) : blogData.image}
+                    alt="Preview"
+                    className="w-full h-48 object-cover rounded-xl border border-slate-600/50"
+                  />
+                </div>
+              )}
             </div>
             
             <div>
