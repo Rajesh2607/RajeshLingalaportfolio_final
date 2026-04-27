@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { auth, db } from '../firebase/config';
 import { onAuthStateChanged } from 'firebase/auth';
-import { collection, getDocs } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 
 export const useAdminAuth = () => {
   const [user, setUser] = useState(null);
@@ -14,9 +14,19 @@ export const useAdminAuth = () => {
 
       if (currentUser) {
         try {
-          const snapshot = await getDocs(collection(db, 'admins'));
-          const adminEmails = snapshot.docs.map(doc => doc.data().email);
-          setIsAdmin(adminEmails.includes(currentUser.email));
+          // Primary: explicit admin doc keyed by uid.
+          const adminByUidRef = doc(db, 'admins', currentUser.uid);
+          const adminByUidSnap = await getDoc(adminByUidRef);
+
+          if (adminByUidSnap.exists()) {
+            setIsAdmin(true);
+          } else {
+            // Legacy fallback: admins/config with { emails: [] }.
+            const configRef = doc(db, 'admins', 'config');
+            const configSnap = await getDoc(configRef);
+            const emails = configSnap.exists() ? configSnap.data().emails : [];
+            setIsAdmin(Array.isArray(emails) && emails.includes(currentUser.email));
+          }
         } catch (error) {
           setIsAdmin(false);
         }

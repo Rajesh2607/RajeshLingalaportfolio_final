@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import SEOHead from '../components/SEO/SEOHead';
 import { personSchema, breadcrumbSchema } from '../components/SEO/StructuredData';
 import { generateBreadcrumbs, generateKeywords } from '../utils/seo';
-import Hero from '../components/whoIam/Hero';
+import Story from '../components/whoIam/Story';
 import Achievements from '../components/whoIam/Achievements';
 import Education from '../components/whoIam/Education';
 import SocialMedia from '../components/whoIam/SocialMedia';
@@ -103,7 +103,7 @@ return (
           ))}
         </div>
         <div className="container mx-auto px-6 space-y-20">
-          <Hero />
+          <Story />
           <Education />
           <About />
           <Achievements />

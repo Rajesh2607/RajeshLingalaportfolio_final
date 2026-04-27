@@ -2,135 +2,106 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    
-    // Security function: Check if user is authenticated admin
-    function isAdminByEmail() {
-      return request.auth != null && 
-             exists(/databases/$(database)/documents/admins) &&
-             get(/databases/$(database)/documents/admins).data.emails.hasAny([request.auth.token.email]);
+
+    function isSignedIn() {
+      return request.auth != null;
     }
 
-    // ===== ADMIN COLLECTION =====
-    // Only authenticated admins can read/write
-    match /admins/{document=**} {
-      allow read, write: if isAdminByEmail();
+    // Primary admin model: admins/{uid}
+    function isAdminByUid() {
+      return isSignedIn() &&
+             exists(/databases/$(database)/documents/admins/$(request.auth.uid));
     }
 
-    // ===== PUBLIC READ COLLECTIONS =====
-    // All these collections can be read by anyone, written only by admins
+    // Legacy admin model fallback: admins/config { emails: [...] }
+    function isAdminByEmailConfig() {
+      return isSignedIn() &&
+             exists(/databases/$(database)/documents/admins/config) &&
+             get(/databases/$(database)/documents/admins/config).data.emails.hasAny([request.auth.token.email]);
+    }
 
-    // Projects
+    function isAdmin() {
+      return isAdminByUid() || isAdminByEmailConfig();
+    }
+
+    // Admin registry documents
+    match /admins/{adminId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Public-read content, admin-write
     match /projects/{projectId} {
       allow read: if true;
-      allow create, update, delete: if isAdminByEmail();
+      allow create, update, delete: if isAdmin();
     }
 
-    // Blogs
     match /blogs/{blogId} {
       allow read: if true;
-      allow create, update, delete: if isAdminByEmail();
+      allow create, update, delete: if isAdmin();
     }
 
-    // Certificates
     match /certificates/{certificateId} {
       allow read: if true;
-      allow create, update, delete: if isAdminByEmail();
+      allow create, update, delete: if isAdmin();
     }
 
-    // About
-    match /about/{documentId} {
-      allow read: if true;
-      allow create, update, delete: if isAdminByEmail();
-    }
-
-    // Achievements
     match /achievements/{achievementId} {
       allow read: if true;
-      allow create, update, delete: if isAdminByEmail();
+      allow create, update, delete: if isAdmin();
     }
 
-    // Education
     match /educations/{educationId} {
       allow read: if true;
-      allow create, update, delete: if isAdminByEmail();
+      allow create, update, delete: if isAdmin();
     }
 
-    // Experience
     match /experiences/{experienceId} {
       allow read: if true;
-      allow create, update, delete: if isAdminByEmail();
+      allow create, update, delete: if isAdmin();
     }
 
-    // Skills
     match /skills/{skillId} {
       allow read: if true;
-      allow create, update, delete: if isAdminByEmail();
+      allow create, update, delete: if isAdmin();
     }
 
-    // Social Media
+    match /socialLinks/{linkId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
     match /socialmedia/{documentId} {
       allow read: if true;
-      allow create, update, delete: if isAdminByEmail();
+      allow create, update, delete: if isAdmin();
     }
 
-    // Hero
     match /hero/{documentId} {
       allow read: if true;
-      allow create, update, delete: if isAdminByEmail();
+      allow create, update, delete: if isAdmin();
     }
 
-    // ===== CONTACT SUBMISSIONS =====
-    // Public can create (submit), only admins can read
+    match /story/{documentId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /whoAboutSections/{sectionId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /content/{documentId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Public can submit contact form; only admins can read/manage
     match /contactSubmissions/{submissionId} {
       allow create: if true;
-      allow read, update, delete: if isAdminByEmail();
+      allow read, update, delete: if isAdmin();
     }
 
-    // ===== DEFAULT DENY =====
-    // Deny all other access
-    match /{document=**} {
-      allow read, write: if false;
-    }
-  }
-}
-
-    // ===== EDUCATION COLLECTION =====
-    // Public can read, only admins can write
-    match /education/{educationId} {
-      allow read: if request.auth == null || request.auth != null;
-      allow create, update, delete: if isAdminByEmail();
-    }
-
-    // ===== EXPERIENCE COLLECTION =====
-    // Public can read, only admins can write
-    match /experience/{experienceId} {
-      allow read: if request.auth == null || request.auth != null;
-      allow create, update, delete: if isAdminByEmail();
-    }
-
-    // ===== SKILLS COLLECTION =====
-    // Public can read, only admins can write
-    match /skills/{skillId} {
-      allow read: if request.auth == null || request.auth != null;
-      allow create, update, delete: if isAdminByEmail();
-    }
-
-    // ===== SOCIAL MEDIA COLLECTION =====
-    // Public can read, only admins can write
-    match /socialmedia/{documentId} {
-      allow read: if request.auth == null || request.auth != null;
-      allow create, update, delete: if isAdminByEmail();
-    }
-
-    // ===== HERO COLLECTION =====
-    // Public can read, only admins can write
-    match /hero/{documentId} {
-      allow read: if request.auth == null || request.auth != null;
-      allow create, update, delete: if isAdminByEmail();
-    }
-
-    // ===== DEFAULT DENY =====
-    // Deny all other access (default deny principle)
+    // Default deny
     match /{document=**} {
       allow read, write: if false;
     }

@@ -7,11 +7,22 @@ service firebase.storage {
     function isAuthenticated() {
       return request.auth != null;
     }
+
+    // Primary admin model: admins/{uid}
+    function isAdminByUid() {
+      return isAuthenticated() &&
+             firestore.exists(/databases/(default)/documents/admins/$(request.auth.uid));
+    }
+
+    // Legacy admin model fallback: admins/config { emails: [...] }
+    function isAdminByEmailConfig() {
+      return isAuthenticated() &&
+             firestore.exists(/databases/(default)/documents/admins/config) &&
+             firestore.get(/databases/(default)/documents/admins/config).data.emails.hasAny([request.auth.token.email]);
+    }
     
     function isAdmin() {
-      return isAuthenticated() && 
-             exists(/databases/(default)/documents/admins) &&
-             get(/databases/(default)/documents/admins).data.emails.hasAny([request.auth.token.email]);
+      return isAdminByUid() || isAdminByEmailConfig();
     }
 
     // Public image folders - allow read for all, write only for admins
@@ -37,8 +48,56 @@ service firebase.storage {
       allow write: if isAdmin();
     }
 
+    // Project media folder used by admin dashboard
+    match /project_media/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
     // Blogs media folder - only admins can write
     match /blogs/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Blog image folder used by AdminBlogManager
+    match /BLOG_IMAGES/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Story and hero images used by StoryManager
+    match /hero-images/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Certificates image uploads
+    match /certificates/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Education image uploads
+    match /education/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // About/profile image uploads
+    match /profile/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Experience logo uploads
+    match /experience-logos/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Who I Am section image uploads
+    match /whoAbout/{allPaths=**} {
       allow read: if true;
       allow write: if isAdmin();
     }

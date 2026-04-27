@@ -72,6 +72,7 @@ const SEOHead = ({
       <meta name="msapplication-TileColor" content="#17c0f8" />
       <meta name="application-name" content="Rajesh Lingala Portfolio" />
       <meta name="apple-mobile-web-app-title" content="Rajesh Lingala" />
+      <meta name="mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       

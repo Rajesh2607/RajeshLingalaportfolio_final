@@ -34,15 +34,15 @@ const Story = () => {
 
   const fetchStoryData = useCallback(async () => {
     try {
-      // Fetch all documents from story collection
-      const storyCollection = collection(db, 'story');
-      const storySnapshot = await getDocs(storyCollection);
+      // Fetch all documents from hero collection
+      const heroCollection = collection(db, 'hero');
+      const heroSnapshot = await getDocs(heroCollection);
       
       // Extract story IDs from documents
-      const storyIds = storySnapshot.docs.map(doc => doc.id);
+      const storyIds = heroSnapshot.docs.map(doc => doc.id);
       
       // Fetch all stories data
-      const storyPromises = storyIds.map(id => getDoc(doc(db, 'story', id)));
+      const storyPromises = storyIds.map(id => getDoc(doc(db, 'hero', id)));
       const storySnapshots = await Promise.all(storyPromises);
 
       const fetchedStories = storySnapshots
@@ -57,6 +57,7 @@ const Story = () => {
 
       setStories(fetchedStories);
     } catch (error) {
+      console.error('Error fetching story data:', error);
     } finally {
       setLoading(false);
     }

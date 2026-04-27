@@ -34,7 +34,7 @@ import SkillManager from './components/SkillManager';
 import AdminEducationForm from './components/AdminEducationForm';
 import AchievementsManager from './components/AchievementsManager';
 import SocialMediaManager from './components/SocialMediaManager';
-import HeroManager from './components/HeroManager';
+import StoryManager from './components/StoryManager';
 import AdminBlogManager from './components/AdminBlogManager';
 import WhoIAmIntroManager from './components/whoiamintroManager';
 import WhoAboutManager from './components/WhoAboutManager';
@@ -186,7 +186,7 @@ const AdminDashboard = () => {
     { id: 'about', label: 'About', icon: User, color: 'text-green-400' },
     { id: 'whoiamintro', label: 'Who I Am Intro', icon: FileText, color: 'text-teal-400' },
     { id: 'whoabout', label: 'Who I Am About', icon: Code, color: 'text-purple-400' },
-    { id: 'hero', label: 'Hero Section', icon: FileText, color: 'text-purple-400' },
+    { id: 'story', label: 'Story Section', icon: FileText, color: 'text-purple-400' },
     { id: 'experience', label: 'Experience', icon: Briefcase, color: 'text-orange-400' },
     { id: 'education', label: 'Education', icon: BookOpen, color: 'text-indigo-400' },
     { id: 'skills', label: 'Skills', icon: Wrench, color: 'text-yellow-400' },
@@ -213,7 +213,7 @@ const AdminDashboard = () => {
       education: <AdminEducationForm />,
       adminBlog: <AdminBlogManager />,
       skills: <SkillManager />,
-      hero: <HeroManager />,
+      story: <StoryManager />,
       achievements: <AchievementsManager />,
       socialMedia: <SocialMediaManager />,
     };
@@ -523,13 +523,13 @@ const DashboardOverview = ({ stats, loading, onSectionChange }) => {
       description: 'Add work experience'
     },
     { 
-      label: 'Update Hero Section', 
-      action: 'hero', 
+      label: 'Update Story Section', 
+      action: 'story', 
       icon: FileText, 
       color: 'from-indigo-400 to-purple-500',
       iconBg: 'bg-indigo-400/20',
       iconColor: 'text-indigo-400',
-      description: 'Modify landing page content'
+      description: 'Modify your story sections'
     },
     { 
       label: 'Add Achievement', 
@@ -547,7 +547,7 @@ const DashboardOverview = ({ stats, loading, onSectionChange }) => {
       title: 'Profile Management',
       items: [
         { label: 'About Me', action: 'about', icon: User, color: 'text-emerald-400' },
-        { label: 'Hero Section', action: 'hero', icon: FileText, color: 'text-indigo-400' },
+        { label: 'Story Section', action: 'story', icon: FileText, color: 'text-indigo-400' },
         { label: 'Who I Am Intro', action: 'whoiamintro', icon: FileText, color: 'text-teal-400' },
         { label: 'Who I Am About', action: 'whoabout', icon: Code, color: 'text-purple-400' },
       ]
