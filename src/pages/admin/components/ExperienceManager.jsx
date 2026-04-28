@@ -48,6 +48,14 @@ const ExperienceManager = () => {
     try {
       let logoURL = formData.logo;
 
+      // Ensure token is fresh so rules see the user's email/claims
+      try {
+        const { refreshAuthToken } = await import('../../../firebase/config');
+        await refreshAuthToken();
+      } catch (e) {
+        console.warn('Could not refresh token before write', e);
+      }
+
       // Upload logo if a new file is selected
       if (logoFile) {
         const logoRef = ref(storage, `experience-logos/${Date.now()}_${logoFile.name}`);
@@ -80,7 +88,8 @@ const ExperienceManager = () => {
       setLogoPreview(null);
       fetchExperiences();
     } catch (error) {
-      alert('Error saving experience');
+      const logError = (await import('../../../utils/logError')).default;
+      logError('Error saving experience', error);
     } finally {
       setUploading(false);
     }
@@ -92,7 +101,8 @@ const ExperienceManager = () => {
         await deleteDoc(doc(db, 'experiences', id));
         fetchExperiences();
       } catch (error) {
-        alert('Error deleting experience');
+        const logError = (await import('../../../utils/logError')).default;
+        logError('Error deleting experience', error);
       }
     }
   };

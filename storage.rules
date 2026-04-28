@@ -8,21 +8,27 @@ service firebase.storage {
       return request.auth != null;
     }
 
-    // Primary admin model: admins/{uid}
     function isAdminByUid() {
       return isAuthenticated() &&
              firestore.exists(/databases/(default)/documents/admins/$(request.auth.uid));
     }
 
-    // Legacy admin model fallback: admins/config { emails: [...] }
-    function isAdminByEmailConfig() {
+    function isAdminByMainEmail() {
       return isAuthenticated() &&
-             firestore.exists(/databases/(default)/documents/admins/config) &&
-             firestore.get(/databases/(default)/documents/admins/config).data.emails.hasAny([request.auth.token.email]);
+             firestore.exists(/databases/(default)/documents/admins/main) &&
+             firestore.get(/databases/(default)/documents/admins/main).data.email == request.auth.token.email;
     }
-    
+
+    // Existing legacy admin document currently present in this project.
+    function isAdminByLegacyEmailDoc() {
+      return isAuthenticated() &&
+             firestore.exists(/databases/(default)/documents/admins/h423cObkVbSra5wB0HmC) &&
+             firestore.get(/databases/(default)/documents/admins/h423cObkVbSra5wB0HmC).data.email == request.auth.token.email;
+    }
+
+    // UID-based admin authorization.
     function isAdmin() {
-      return isAdminByUid() || isAdminByEmailConfig();
+      return isAdminByUid() || isAdminByMainEmail() || isAdminByLegacyEmailDoc();
     }
 
     // Public image folders - allow read for all, write only for admins

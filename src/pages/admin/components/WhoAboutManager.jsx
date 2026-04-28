@@ -58,7 +58,8 @@ const WhoAboutManager = () => {
       return downloadURL;
     } catch (error) {
       console.error('Error uploading image:', error);
-      alert('Error uploading image');
+      const logError = (await import('../../../utils/logError')).default;
+      logError('Error uploading image', error);
       return null;
     } finally {
       setUploadingImage(false);
@@ -70,6 +71,14 @@ const WhoAboutManager = () => {
     try {
       let imageUrl = formData.image;
       
+      // Refresh ID token before writes/uploads so rules see current token
+      try {
+        const { refreshAuthToken } = await import('../../../firebase/config');
+        await refreshAuthToken();
+      } catch (e) {
+        console.warn('Could not refresh token before whoAbout write', e);
+      }
+
       // Upload new image if selected
       if (imageFile) {
         imageUrl = await handleImageUpload(imageFile);
@@ -93,7 +102,8 @@ const WhoAboutManager = () => {
       fetchAboutSections();
     } catch (error) {
       console.error('Error saving about section:', error);
-      alert('Error saving about section');
+      const logError = (await import('../../../utils/logError')).default;
+      logError('Error saving about section', error);
     }
   };
 
@@ -121,7 +131,8 @@ const WhoAboutManager = () => {
         fetchAboutSections();
       } catch (error) {
         console.error('Error deleting section:', error);
-        alert('Error deleting section');
+        const logError = (await import('../../../utils/logError')).default;
+        logError('Error deleting section', error);
       }
     }
   };

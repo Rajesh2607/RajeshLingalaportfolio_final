@@ -110,7 +110,6 @@ export const preloadCriticalResources = () => {
   
   // Preload critical images
   const criticalImages = [
-    '/images/icon1.jpg',
     '/images/Profile.jpg'
   ];
   

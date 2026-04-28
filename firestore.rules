@@ -7,32 +7,38 @@ service cloud.firestore {
       return request.auth != null;
     }
 
-    // Primary admin model: admins/{uid}
     function isAdminByUid() {
       return isSignedIn() &&
              exists(/databases/$(database)/documents/admins/$(request.auth.uid));
     }
 
-    // Legacy admin model fallback: admins/config { emails: [...] }
-    function isAdminByEmailConfig() {
+    function isAdminByMainEmail() {
       return isSignedIn() &&
-             exists(/databases/$(database)/documents/admins/config) &&
-             get(/databases/$(database)/documents/admins/config).data.emails.hasAny([request.auth.token.email]);
+             exists(/databases/$(database)/documents/admins/main) &&
+             get(/databases/$(database)/documents/admins/main).data.email == request.auth.token.email;
     }
 
+    // Existing legacy admin document currently present in this project.
+    function isAdminByLegacyEmailDoc() {
+      return isSignedIn() &&
+             exists(/databases/$(database)/documents/admins/h423cObkVbSra5wB0HmC) &&
+             get(/databases/$(database)/documents/admins/h423cObkVbSra5wB0HmC).data.email == request.auth.token.email;
+    }
+
+    // UID-based admin authorization.
     function isAdmin() {
-      return isAdminByUid() || isAdminByEmailConfig();
-    }
-
-    // Admin email config used for login bootstrap fallback.
-    match /admins/config {
-      allow read: if isSignedIn();
-      allow write: if isAdmin();
+      return isAdminByUid() || isAdminByMainEmail() || isAdminByLegacyEmailDoc();
     }
 
     // Admin registry documents (typically keyed by uid).
     match /admins/{adminId} {
-      allow read: if (isSignedIn() && request.auth.uid == adminId) || isAdmin();
+      // Allow reads for:
+      // - the user's own admin document (request.auth.uid == adminId)
+      // - special lookup documents used by the rules ('main' and the legacy id)
+      // - or full admin (isAdmin())
+      allow read: if ( (isSignedIn() && (request.auth.uid == adminId || adminId == 'main' || adminId == 'h423cObkVbSra5wB0HmC')) || isAdmin() );
+
+      // Updates and deletes require full admin rights.
       allow write: if isAdmin();
     }
 

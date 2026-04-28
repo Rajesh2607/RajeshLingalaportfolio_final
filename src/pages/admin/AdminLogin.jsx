@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase/config';
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { auth, db } from '../../firebase/config';
+import { doc, getDoc } from 'firebase/firestore';
 import { Lock, Eye, EyeOff, Shield, AlertCircle, Sparkles, ArrowRight } from 'lucide-react';
 import { useAdminAuth } from '../../hooks/useAdminAuth';
 import { motion } from 'framer-motion';
@@ -35,18 +36,75 @@ const AdminLogin = () => {
     }
   }, [isAdmin, navigate]);
 
+  const isLegacyEmailAdmin = async (email) => {
+    const normalizedEmail = (email || '').trim().toLowerCase();
+
+    try {
+      const mainRef = doc(db, 'admins', 'main');
+      const mainSnap = await getDoc(mainRef);
+      const mainEmail = mainSnap.exists() ? String(mainSnap.data().email || '').trim().toLowerCase() : '';
+      if (mainEmail && mainEmail === normalizedEmail) {
+        return true;
+      }
+    } catch (e) {
+      console.error('isLegacyEmailAdmin: failed to read admins/main', e);
+      // Permission denied reading admins/main
+    }
+
+    // Existing legacy document in your database from previous setup.
+    try {
+      const legacyRef = doc(db, 'admins', 'h423cObkVbSra5wB0HmC');
+      const legacySnap = await getDoc(legacyRef);
+      const legacyEmail = legacySnap.exists() ? String(legacySnap.data().email || '').trim().toLowerCase() : '';
+      return legacyEmail && legacyEmail === normalizedEmail;
+    } catch (e) {
+      console.error('isLegacyEmailAdmin: failed to read legacy admin doc', e);
+      return false;
+    }
+  };
+
+  const checkAdminAccess = async (user) => {
+    try {
+      const adminByUidRef = doc(db, 'admins', user.uid);
+      const adminByUidSnap = await getDoc(adminByUidRef);
+      if (adminByUidSnap.exists()) {
+        return true;
+      }
+    } catch (e) {
+      console.error('checkAdminAccess: failed to read admins/{uid}', e);
+      // If permission denied, fall through to legacy email checks which may also fail
+    }
+
+    try {
+      return await isLegacyEmailAdmin(user.email);
+    } catch (e) {
+      console.error('checkAdminAccess: legacy email check failed', e);
+      return false;
+    }
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const credential = await signInWithEmailAndPassword(auth, email.trim(), password);
+
+      const hasAdminAccess = await checkAdminAccess(credential.user);
+      if (!hasAdminAccess) {
+        await signOut(auth);
+        setError('This account is not authorized for admin access');
+        return;
+      }
       
       // Initialize persistent session that survives browser close
       initializePersistentSession();
-    } catch (error) {
-      switch (error.code) {
+      navigate('/admin');
+    } catch (err) {
+      console.error('Admin login error:', err);
+      const code = err?.code;
+      switch (code) {
         case 'auth/invalid-email':
           setError('Invalid email address format');
           break;
@@ -60,10 +118,10 @@ const AdminLogin = () => {
           setError('Too many failed attempts. Please try again later');
           break;
         case 'auth/invalid-credential':
-          setError('Invalid credentials. Please check your email and password');
+          setError('Invalid credentials. This email/password is not found in Firebase Authentication or the password is wrong.');
           break;
         default:
-          setError('Failed to login. Please check your credentials');
+          setError(err?.message || 'Failed to login. Please check your credentials');
       }
     } finally {
       setLoading(false);

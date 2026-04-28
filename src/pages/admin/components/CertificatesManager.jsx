@@ -130,6 +130,14 @@ const CertificatesManager = () => {
     try {
       let imageUrl = formData.image;
 
+      // Refresh token so rules have current token data
+      try {
+        const { refreshAuthToken } = await import('../../../firebase/config');
+        await refreshAuthToken();
+      } catch (e) {
+        console.warn('Could not refresh token before certificate write', e);
+      }
+
       // If using image upload and a file is selected, upload it
       if (useImageUpload && selectedFile) {
         imageUrl = await uploadImage(selectedFile);
@@ -168,7 +176,8 @@ const CertificatesManager = () => {
       resetForm();
       fetchCertificates();
     } catch (error) {
-      alert('Error saving certificate');
+        const logError = (await import('../../../utils/logError')).default;
+        logError('Error saving certificate', error);
     } finally {
       setUploading(false);
     }
@@ -180,7 +189,8 @@ const CertificatesManager = () => {
         await deleteDoc(doc(db, 'certificates', id));
         fetchCertificates();
       } catch (error) {
-        alert('Error deleting certificate');
+          const logError = (await import('../../../utils/logError')).default;
+          logError('Error deleting certificate', error);
       }
     }
   };
