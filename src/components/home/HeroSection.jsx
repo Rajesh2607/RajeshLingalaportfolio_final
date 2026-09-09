@@ -142,7 +142,7 @@ const SocialLinks = () => {
       icon: <Github size={24} />
     },
     {
-      href: "https://www.linkedin.com/in/lingala-rajesh-03a336280",
+      href: "https://www.linkedin.com/in/rajesh-lingala-03a336280",
       label: "LinkedIn",
       icon: <Linkedin size={24} />
     },
